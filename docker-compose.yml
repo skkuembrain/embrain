@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  backend:
+    container-name: backend
+    restart: always
+    build: ./build
+    volumes:
+      - ./backend:/backend
+    command: ["uvicorn", "main:app"] 
+

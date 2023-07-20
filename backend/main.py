@@ -1,8 +1,8 @@
-from fastapi import fastapi
+from fastapi import FastAPI
 
 app = FastAPI()
 
 @app.get('/')
-async def hello():
-    result = '안녕하세요'
+async def mainPage():
+    result = 'Hello, World :)'
     return result
