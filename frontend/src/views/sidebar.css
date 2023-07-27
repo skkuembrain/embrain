@@ -9,9 +9,8 @@
 .sidebar-sidebar {
   gap: 365px;
   width: 452px;
-  height: 728px;
+  height: 1111px;
   display: flex;
-  padding: 24px 40px;
   overflow: hidden;
   align-items: center;
   flex-shrink: 0;
@@ -21,14 +20,14 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.sidebar-frame164 {
+.sidebar-task-option {
   gap: 32px;
   display: flex;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
 }
-.sidebar-text {
+.sidebar-text-main {
   color: rgba(0, 0, 0, 1);
   height: auto;
   font-size: 34px;
@@ -41,21 +40,21 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-frame139 {
+.sidebar-option-main {
   gap: 24px;
   display: flex;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
 }
-.sidebar-frame155 {
+.sidebar-frame-task-option {
   gap: 16px;
   display: flex;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
 }
-.sidebar-text02 {
+.sidebar-text-task-option {
   color: rgb(0, 0, 0);
   height: auto;
   font-size: 24px;
@@ -81,7 +80,7 @@
   border-radius: 8px;
   flex-direction: column;
 }
-.sidebar-frame136 {
+.sidebar-frame-opencoding {
   gap: 12px;
   display: flex;
   align-self: stretch;
@@ -98,11 +97,7 @@
   flex-shrink: 0;
   justify-content: center;
 }
-.sidebar-image {
-  width: 200px;
-  object-fit: cover;
-}
-.sidebar-frame137 {
+.sidebar-choice-opencoding {
   gap: 8px;
   width: 334px;
   display: flex;
@@ -112,7 +107,7 @@
   flex-direction: column;
   justify-content: center;
 }
-.sidebar-text03 {
+.sidebar-text01 {
   color: rgb(0, 0, 0);
   height: auto;
   font-size: 16px;
@@ -125,7 +120,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-text04 {
+.sidebar-text02 {
   color: rgb(117, 117, 117);
   height: auto;
   font-size: 14px;
@@ -151,7 +146,7 @@
   border-radius: 8px;
   flex-direction: column;
 }
-.sidebar-frame1361 {
+.sidebar-frame-sumsakey {
   gap: 12px;
   display: flex;
   align-self: stretch;
@@ -161,8 +156,14 @@
 .sidebar-checkbox1 {
   width: 24px;
   height: 24px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-end;
+  flex-shrink: 0;
+  justify-content: center;
 }
-.sidebar-frame1371 {
+.sidebar-choice-sumsakey {
   gap: 8px;
   width: 334px;
   display: flex;
@@ -172,7 +173,7 @@
   flex-direction: column;
   justify-content: center;
 }
-.sidebar-text08 {
+.sidebar-text06 {
   color: rgb(0, 0, 0);
   height: auto;
   font-size: 16px;
@@ -185,7 +186,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-text09 {
+.sidebar-text07 {
   color: rgb(117, 117, 117);
   height: auto;
   font-size: 14px;
@@ -198,7 +199,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-frame149 {
+.sidebar-frame-model-option {
   gap: 10px;
   display: flex;
   padding: 10px 10px 10px 16px;
@@ -210,24 +211,11 @@
   border-width: 1px;
   border-radius: 8px;
 }
-.sidebar-text26 {
-  color: rgb(0, 0, 0);
-  height: auto;
-  flex-grow: 1;
-  font-size: 14px;
-  font-style: Medium;
-  text-align: left;
-  font-family: Inter;
-  font-weight: 500;
-  line-height: normal;
-  font-stretch: normal;
-  text-decoration: none;
+.sidebar-select {
+  flex: 1;
+  align-self: stretch;
 }
-.sidebar-chevrondown {
-  width: 20px;
-  height: 20px;
-}
-.sidebar-frame144 {
+.sidebar-option-bar-graph {
   gap: 8px;
   display: flex;
   align-self: stretch;
@@ -237,32 +225,14 @@
 .sidebar-checkbox2 {
   width: 24px;
   height: 24px;
-}
-.sidebar-text27 {
-  color: rgb(0, 0, 0);
-  height: auto;
-  flex-grow: 1;
-  font-size: 16px;
-  font-style: Medium;
-  text-align: left;
-  font-family: Inter;
-  font-weight: 500;
-  line-height: normal;
-  font-stretch: normal;
-  text-decoration: none;
-}
-.sidebar-frame156 {
-  gap: 8px;
   display: flex;
-  align-self: stretch;
-  align-items: center;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-end;
   flex-shrink: 0;
+  justify-content: center;
 }
-.sidebar-checkbox3 {
-  width: 24px;
-  height: 24px;
-}
-.sidebar-text28 {
+.sidebar-text24 {
   color: rgb(0, 0, 0);
   height: auto;
   flex-grow: 1;
@@ -275,7 +245,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-frame146 {
+.sidebar-option-pie-chart {
   gap: 8px;
   display: flex;
   align-self: stretch;
@@ -288,15 +258,12 @@
   display: flex;
   overflow: hidden;
   position: relative;
-  align-items: flex-start;
+  align-items: flex-end;
   flex-shrink: 0;
+  justify-content: center;
 }
-.sidebar-image1 {
-  width: 200px;
-  object-fit: cover;
-}
-.sidebar-text29 {
-  color: rgba(0, 0, 0, 1);
+.sidebar-text25 {
+  color: rgb(0, 0, 0);
   height: auto;
   flex-grow: 1;
   font-size: 16px;
@@ -308,9 +275,9 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-container1 {
-  flex: 0 0 auto;
-  width: auto;
+.sidebar-history-main {
+  flex: 1;
+  width: var(--dl-size-size-medium);
   height: auto;
   display: flex;
   align-items: flex-start;
@@ -340,7 +307,7 @@
   width: 16px;
   height: 16px;
 }
-.sidebar-text31 {
+.sidebar-text26 {
   color: rgba(117, 117, 117, 1);
   height: auto;
   font-size: 14px;
@@ -352,7 +319,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.sidebar-container2 {
+.sidebar-container1 {
   flex: 0 0 auto;
   width: auto;
   height: auto;
@@ -395,7 +362,7 @@
   width: 16px;
   height: 16px;
 }
-.sidebar-text33 {
+.sidebar-text28 {
   color: rgba(255, 255, 255, 1);
   height: auto;
   font-size: 14px;
@@ -406,4 +373,56 @@
   line-height: 150%;
   font-stretch: normal;
   text-decoration: none;
+}
+@media(max-width: 1600px) {
+  .sidebar-sidebar {
+    width: 459px;
+    height: 1114px;
+    position: relative;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-bottom: 0px;
+  }
+  .sidebar-select {
+    flex: 1;
+  }
+  .sidebar-history-main {
+    flex: 1;
+    width: auto;
+    height: 278px;
+    align-items: stretch;
+    padding-bottom: var(--dl-space-space-fiveunits);
+    justify-content: center;
+  }
+  .sidebar-container1 {
+    padding-bottom: 0px;
+  }
+}
+@media(max-width: 1200px) {
+  .sidebar-checkbox {
+    width: 13px;
+    height: 14px;
+  }
+  .sidebar-radiobutton {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+  }
+  .sidebar-checkbox1 {
+    width: 13px;
+    height: 14px;
+  }
+  .sidebar-radiobutton1 {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+  }
+  .sidebar-checkbox2 {
+    width: 13px;
+    height: 14px;
+  }
+  .sidebar-checkbox4 {
+    width: 13px;
+    height: 14px;
+  }
 }

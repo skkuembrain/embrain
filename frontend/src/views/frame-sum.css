@@ -1,4 +1,4 @@
-.frame159-container {
+.frame-sum-container {
   width: 100%;
   display: flex;
   overflow: auto;
@@ -7,7 +7,7 @@
   flex-direction: column;
   justify-content: center;
 }
-.frame159-frame159 {
+.frame-sum-frame {
   width: 100%;
   height: 767px;
   display: flex;
@@ -18,37 +18,34 @@
   flex-shrink: 0;
   justify-content: flex-start;
 }
-.frame159-frame185 {
+.frame-sum-user-input {
   gap: 12px;
-  left: 313px;
-  width: 800px;
+  left: 0px;
+  width: 100%;
   bottom: 18px;
   display: flex;
   position: absolute;
-  align-items: flex-end;
+  align-items: flex-start;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   flex-direction: column;
+  padding-bottom: 30px;
 }
-.frame159-frame182 {
+.frame-sum-task-option {
   gap: 16px;
   width: 100%;
   display: flex;
   align-items: center;
   flex-shrink: 0;
 }
-.frame159-container1 {
-  flex: 0 0 auto;
-  width: 1142px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-}
-.frame159-frame168 {
+.frame-sum-button {
   gap: 12px;
   display: flex;
   flex-grow: 1;
   align-items: flex-start;
 }
-.frame159-frame166 {
+.frame-sum-summary-button {
   gap: 10px;
   display: flex;
   padding: 6px 12px;
@@ -57,11 +54,10 @@
   border-radius: 8px;
   background-color: rgba(238, 238, 238, 1);
 }
-.frame159-icon {
-  width: 17px;
-  align-self: stretch;
+.frame-sum-radiobutton {
+  align-self: center;
 }
-.frame159-text {
+.frame-sum-text {
   color: rgb(88, 88, 88);
   height: auto;
   font-size: 14px;
@@ -73,7 +69,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame1681 {
+.frame-sum-s-button {
   gap: 10px;
   display: flex;
   padding: 6px 12px;
@@ -83,11 +79,10 @@
   border-radius: 8px;
   background-color: rgba(238, 238, 238, 1);
 }
-.frame159-icon02 {
-  width: 17px;
-  align-self: stretch;
+.frame-sum-radiobutton1 {
+  align-self: center;
 }
-.frame159-text01 {
+.frame-sum-text01 {
   color: rgb(88, 88, 88);
   height: auto;
   font-size: 14px;
@@ -99,20 +94,19 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame169 {
+.frame-sum-keyword-button {
   gap: 10px;
   display: flex;
   padding: 6px 12px;
   align-items: flex-start;
-  border-color: var(--dl-color-gray-900);
+  border-color: #d9d9d9;
   border-radius: 8px;
   background-color: rgba(238, 238, 238, 1);
 }
-.frame159-icon04 {
-  width: 17px;
-  align-self: stretch;
+.frame-sum-radiobutton2 {
+  align-self: center;
 }
-.frame159-text02 {
+.frame-sum-text02 {
   color: rgb(88, 88, 88);
   height: auto;
   font-size: 14px;
@@ -124,38 +118,16 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame154 {
-  gap: 8px;
-  display: flex;
-  align-items: center;
-  border-color: rgba(0, 0, 0, 0);
-}
-.frame159-clear {
-  width: 24px;
-  height: 24px;
-}
-.frame159-text05 {
-  color: rgba(0, 0, 0, 1);
-  height: auto;
-  font-size: 16px;
-  font-style: Medium;
-  text-align: left;
-  font-family: Inter;
-  font-weight: 500;
-  line-height: normal;
-  font-stretch: normal;
-  text-decoration: none;
-}
-.frame159-input {
+.frame-sum-input {
   gap: 4px;
   width: 100%;
   display: flex;
   align-items: flex-end;
   flex-direction: column;
 }
-.frame159-frame160 {
+.frame-sum-input-box {
   gap: 10px;
-  width: 800px;
+  width: 100%;
   display: flex;
   padding: 12px 16px;
   overflow: hidden;
@@ -169,14 +141,14 @@
   flex-direction: column;
   background-color: rgba(248, 248, 248, 1);
 }
-.frame159-frame161 {
+.frame-sum-inner-input-box {
   gap: 8px;
   display: flex;
   align-self: stretch;
   align-items: center;
   flex-shrink: 0;
 }
-.frame159-frame189 {
+.frame-sum-user-link-input {
   width: 20px;
   height: 20px;
   display: flex;
@@ -185,43 +157,28 @@
   align-items: flex-start;
   flex-shrink: 0;
 }
-.frame159-ellipse3 {
-  left: 0px;
-  width: 20px;
-  bottom: 0px;
-  height: 20px;
-  position: absolute;
-  border-color: rgba(0, 0, 0, 0.11);
-  border-style: solid;
-  border-width: 0px;
+.frame-sum-icon {
+  width: 25px;
+  height: 100%;
 }
-.frame159-text07 {
-  color: rgba(0, 0, 0, 1);
-  height: auto;
-  flex-grow: 1;
-  font-size: 16px;
-  font-style: Regular;
-  text-align: left;
-  font-family: Inter;
-  font-weight: 400;
-  line-height: normal;
-  border-color: rgba(0, 0, 0, 0);
-  font-stretch: normal;
-  text-decoration: none;
-  background-color: #f8f8f8;
+.frame-sum-textarea {
+  flex: 1;
+  width: 1398px;
+  height: 52px;
+  border-color: var(--dl-color-gray-900);
 }
-.frame159-stop {
-  width: 20px;
-  height: 20px;
+.frame-sum-icon02 {
+  width: 27px;
+  height: 21px;
 }
-.frame159-frame224 {
+.frame-sum-cancel-guide {
   gap: 4px;
   display: flex;
   align-self: stretch;
   align-items: flex-start;
   flex-shrink: 0;
 }
-.frame159-text09 {
+.frame-sum-text-cancel-guide {
   color: var(--dl-color-gray-400);
   height: auto;
   flex-grow: 1;
@@ -234,34 +191,37 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame175 {
+.frame-sum-dialog {
   gap: 8px;
   top: 164px;
-  left: 319px;
+  left: 0px;
   width: 100%;
   display: flex;
   position: absolute;
   align-items: center;
   flex-direction: column;
 }
-.frame159-frame1751 {
+.frame-sum-input1 {
   gap: 24px;
-  width: 800px;
+  width: 100%;
   display: flex;
-  padding: 24px 0;
   overflow: hidden;
   align-items: flex-end;
   flex-shrink: 0;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   flex-direction: column;
+  padding-bottom: 30px;
 }
-.frame159-frame171 {
+.frame-sum-date-user-name {
   gap: 16px;
   width: 700px;
   display: flex;
   align-items: flex-end;
   flex-shrink: 0;
 }
-.frame159-frame176 {
+.frame-sum-date-user-nameframe {
   gap: 8px;
   width: 100%;
   display: flex;
@@ -269,7 +229,7 @@
   flex-shrink: 0;
   flex-direction: column;
 }
-.frame159-text11 {
+.frame-sum-text-date {
   color: rgba(136, 136, 136, 1);
   height: auto;
   font-size: 14px;
@@ -281,8 +241,8 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-text13 {
-  color: rgba(136, 136, 136, 1);
+.frame-sum-text-user-name {
+  color: rgb(136, 136, 136);
   width: 628px;
   height: auto;
   font-size: 18px;
@@ -294,27 +254,29 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-case {
+.frame-sum-users-input-data {
   gap: 10px;
   width: 700px;
   display: flex;
   padding: 16px;
   align-items: flex-start;
   flex-shrink: 0;
+  border-color: var(--dl-color-gray-900);
+  border-width: 1px;
   border-radius: 12px;
-  background-color: rgba(249, 249, 249, 1);
+  background-color: #ffffff;
 }
-.frame159-frame180 {
+.frame-sum-users-input-data1 {
   gap: 8px;
   display: flex;
   flex-grow: 1;
   align-items: center;
 }
-.frame159-icons8googledocs1 {
+.frame-sum-icon04 {
   width: 24px;
   height: 24px;
 }
-.frame159-text15 {
+.frame-sum-what-user-text {
   color: rgba(0, 0, 0, 1);
   height: auto;
   font-size: 16px;
@@ -326,7 +288,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-text17 {
+.frame-sum-user-file-volume {
   color: rgba(136, 136, 136, 1);
   height: auto;
   font-size: 14px;
@@ -338,20 +300,21 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame181 {
+.frame-sum-re-download-button {
   gap: 8px;
   width: 134px;
   height: 25px;
   display: flex;
   align-items: center;
   border-color: rgba(255, 255, 255, 0);
-  background-color: #f9f9f9;
+  border-width: 0px;
+  background-color: transparent;
 }
-.frame159-icon06 {
+.frame-sum-icon-download {
   width: 24px;
   height: 24px;
 }
-.frame159-text19 {
+.frame-sum-text-download {
   color: rgba(136, 136, 136, 1);
   height: auto;
   font-size: 14px;
@@ -363,24 +326,28 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame173 {
+.frame-sum-output {
   gap: 10px;
-  width: 800px;
+  width: 100%;
   display: flex;
-  padding: 24px 0;
   overflow: hidden;
+  align-self: flex-start;
   align-items: flex-start;
   flex-shrink: 0;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   flex-direction: column;
+  padding-bottom: 30px;
 }
-.frame159-frame1711 {
+.frame-sum-embrain-model {
   gap: 16px;
   width: 700px;
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
 }
-.frame159-frame177 {
+.frame-sum-logo-embrain {
   width: 24px;
   height: 27px;
   display: flex;
@@ -388,14 +355,14 @@
   align-items: flex-start;
   flex-shrink: 0;
 }
-.frame159-unnamed932w7r-r4ftransformed1 {
+.frame-sum-logo-embrain1 {
   top: 1px;
   left: 0px;
   width: 24px;
   height: 24px;
   position: absolute;
 }
-.frame159-frame1761 {
+.frame-sum-frame-output-date {
   gap: 24px;
   width: 660px;
   display: flex;
@@ -403,7 +370,7 @@
   flex-shrink: 0;
   flex-direction: column;
 }
-.frame159-text21 {
+.frame-sum-text-output-date {
   color: rgba(0, 0, 0, 1);
   width: 109px;
   height: auto;
@@ -416,28 +383,30 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-case1 {
+.frame-sum-model-output-data {
   gap: 10px;
   width: 700px;
   display: flex;
   padding: 16px;
   align-items: center;
   flex-shrink: 0;
+  border-color: var(--dl-color-gray-900);
+  border-width: 1px;
   border-radius: 12px;
   justify-content: flex-start;
-  background-color: rgba(249, 249, 249, 1);
+  background-color: #ffffff;
 }
-.frame159-frame1801 {
+.frame-sum-frame-output-data {
   gap: 8px;
   display: flex;
   flex-grow: 1;
   align-items: center;
 }
-.frame159-icons8googledocs11 {
+.frame-sum-icon07 {
   width: 24px;
   height: 24px;
 }
-.frame159-text23 {
+.frame-sum-text10 {
   color: rgba(0, 0, 0, 1);
   height: auto;
   font-size: 16px;
@@ -449,7 +418,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-text25 {
+.frame-sum-text11 {
   color: rgba(136, 136, 136, 1);
   height: auto;
   font-size: 14px;
@@ -461,20 +430,20 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.frame159-frame1811 {
+.frame-sum-download-button {
   gap: 8px;
   width: 134px;
   height: 25px;
   display: flex;
   align-items: center;
   border-color: rgba(255, 255, 255, 0);
-  background-color: #f9f9f9;
+  background-color: transparent;
 }
-.frame159-icon08 {
+.frame-sum-icon-download-button {
   width: 24px;
   height: 24px;
 }
-.frame159-text27 {
+.frame-sum-text-download-button {
   color: rgba(136, 136, 136, 1);
   height: auto;
   font-size: 14px;
@@ -487,105 +456,135 @@
   text-decoration: none;
 }
 @media(max-width: 1600px) {
-  .frame159-frame159 {
-    width: 1200px;
-    height: 837px;
-    align-self: flex-end;
-    align-items: center;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    background-color: #ffffff;
+  .frame-sum-frame {
+    height: 728px;
   }
-  .frame159-frame185 {
-    flex: 1;
+  .frame-sum-user-input {
     left: 0px;
     width: 100%;
-    bottom: 39px;
+    margin-top: 0px;
     margin-left: 0px;
-    padding-left: 0px;
-    padding-right: 61px;
+    margin-right: 0px;
+    margin-bottom: 0px;
   }
-  .frame159-frame182 {
+  .frame-sum-task-option {
+    align-self: flex-start;
+  }
+  .frame-sum-button {
     width: 100%;
   }
-  .frame159-container1 {
+  .frame-sum-radiobutton {
+    align-self: center;
+  }
+  .frame-sum-radiobutton1 {
+    align-self: center;
+  }
+  .frame-sum-keyword-button {
+    padding-left: 6px 12px;
+  }
+  .frame-sum-radiobutton2 {
+    z-index: 100;
+    align-self: center;
+    border-radius: var(--dl-radius-radius-radius4);
+  }
+  .frame-sum-textarea {
     flex: 1;
-    width: 955px;
-    height: 41px;
-    padding-left: var(--dl-space-space-threeunits);
+    align-self: center;
+    border-color: var(--dl-color-gray-900);
+    border-width: 1px;
   }
-  .frame159-frame168 {
-    width: auto;
-    align-self: flex-start;
-    align-items: center;
-    flex-direction: row;
-    justify-content: flex-start;
+  .frame-sum-dialog {
+    left: 0px;
   }
-  .frame159-frame166 {
-    width: 120px;
-    height: 31px;
-    margin-right: 0px;
+  .frame-sum-input1 {
+    width: 100%;
+    height: 173px;
+    padding-left: 30px;
+    padding-right: 30px;
   }
-  .frame159-text {
-    color: rgb(88, 88, 88);
+  .frame-sum-users-input-data {
+    border-color: var(--dl-color-gray-900);
+    border-width: 1px;
   }
-  .frame159-frame1681 {
-    height: 32px;
-  }
-  .frame159-text01 {
-    color: rgb(88, 88, 88);
-  }
-  .frame159-frame169 {
-    height: 32px;
-  }
-  .frame159-text02 {
-    color: rgb(88, 88, 88);
-  }
-  .frame159-frame154 {
-    background-color: rgba(255, 255, 255, 0);
-  }
-  .frame159-frame160 {
-    width: 1100px;
-  }
-  .frame159-frame175 {
-    top: 222px;
-    flex: 1;
-    left: 4px;
-    right: -24px;
-    width: 1176px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  .frame159-frame1751 {
+  .frame-sum-output {
     width: 100%;
     padding-left: 30px;
     padding-right: 30px;
   }
-  .frame159-case {
-    border-color: var(--dl-color-gray-900);
-    border-width: 1px;
-  }
-  .frame159-frame173 {
-    width: 100%;
-    padding-top: 30px;
-    margin-right: 0px;
-    padding-left: 50px;
-    padding-right: 30px;
-    padding-bottom: 30px;
-  }
-  .frame159-case1 {
+  .frame-sum-model-output-data {
     border-color: var(--dl-color-gray-900);
     border-width: 1px;
   }
 }
 @media(max-width: 1200px) {
-  .frame159-frame159 {
-    width: 100%;
-    height: 1162px;
+  .frame-sum-frame {
+    height: 751px;
   }
-  .frame159-frame176 {
+  .frame-sum-user-input {
+    left: 0px;
     width: 100%;
+    bottom: 42px;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+  }
+  .frame-sum-radiobutton {
+    align-self: center;
+    box-shadow: 5px 5px 10px 0px #d4d4d4;
+  }
+  .frame-sum-radiobutton1 {
+    align-self: center;
+  }
+  .frame-sum-radiobutton2 {
+    align-self: center;
+  }
+  .frame-sum-dialog {
+    flex: 1;
+    left: 0px;
+    width: 1199px;
+    align-self: flex-start;
+  }
+  .frame-sum-input1 {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .frame-sum-text-user-name {
+    color: rgb(136, 136, 136);
+    font-size: 18px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+  }
+  .frame-sum-users-input-data {
+    border-color: var(--dl-color-gray-900);
+    border-width: 1px;
+  }
+  .frame-sum-what-user-text {
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+  }
+  .frame-sum-output {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .frame-sum-model-output-data {
+    border-color: var(--dl-color-gray-900);
+    border-width: 1px;
+  }
+  .frame-sum-text10 {
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
   }
 }

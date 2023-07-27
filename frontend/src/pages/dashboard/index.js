@@ -31,10 +31,7 @@ import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
-import avatar1 from 'assets/images/users/avatar-1.png';
-import avatar2 from 'assets/images/users/avatar-2.png';
-import avatar3 from 'assets/images/users/avatar-3.png';
-import avatar4 from 'assets/images/users/avatar-4.png';
+
 
 // avatar style
 const avatarSX = {
@@ -72,7 +69,7 @@ const status = [
 // figma design
 import 'style.css'
 import Sidebar from 'views/sidebar'
-import Frame159 from 'views/frame159'
+import Frame159 from 'views/frame-sum'
 
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
@@ -128,17 +125,17 @@ const DashboardDefault = () => {
     </Box>
   </Box> */}
   
-  <Grid item xs={12} sm={12} md={1} lg={12}>
+  <Grid item xs={12} md={1} lg={12}>
     <Grid container alignItems="center" justifyContent="space-between">
-      <Frame159>
-
-      </Frame159>
+      <Frame159/>
     </Grid>
   </Grid>
 
+
+
   
 
-      {/* row 4 : Open Coding Graph
+      {/* row 4 : Open Coding Graph */}
   <Grid item xs={12} md={10} lg={12}>
     <Grid container alignItems="center" justifyContent="space-between">
       <Grid item>
@@ -170,7 +167,10 @@ const DashboardDefault = () => {
       </Stack>
       <SalesColumnChart />
     </MainCard>
-  </Grid> */}
+  </Grid>
+
+
+
 </Grid>
 
   );
