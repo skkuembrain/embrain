@@ -1,16 +1,26 @@
-from fastapi import APIRouter, File, FileUpload
+from fastapi import APIRouter, File, UploadFile
+from model.modelTest import TextGenerator
 import pandas as pd
 import xlsxwriter
+from pydantic import BaseModel
+
+
+class TextInferenceInput(BaseModel):
+    text: str
+    pos: bool
+    model: str
+
 
 router = APIRouter(
 	prefix="/model",
     tags=["models"]
 )
 
-@router.post('/oc/text')
-async def inference_text(input:str, pos: bool, model:str):
 
-    if pos:
+@router.post('/oc/text')
+async def inference_text(input: TextInferenceInput):
+
+    if input.pos:
         prompt = '다음 텍스트는 긍정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
     else:
         prompt = '다음 텍스트는 부정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
@@ -19,18 +29,17 @@ async def inference_text(input:str, pos: bool, model:str):
         "Below is an instruction that describes a task, paired with an input that provides further context.\n"
         "아래는 작업을 설명하는 명령어와 추가적 맥락을 제공하는 입력이 짝을 이루는 예제입니다.\n\n"
         "Write a response that appropriately completes the request.\n요청을 적절히 완료하는 응답을 작성하세요.\n\n"
-        "### Instruction(명령어):\n{}\n\n### Input(입력):\n{}\n\n### Response(응답):".format(prompt, input)
+        "### Instruction(명령어):\n{}\n\n### Input(입력):\n{}\n\n### Response(응답):".format(prompt, input.text)
     )
 
-    # TODO: connect model code
-
-
-    
-    return modelPrompt
+    inferenceText = TextGenerator(input.model)
+    result = await inferenceText.generate(input.model, modelPrompt)
+    #TODO: process result
+    return result[0]["generated_text"]
 
 
 @router.post('/oc/file')
-async def inference_file(file: FileUpload, pos: bool, model: str):
+async def inference_file(file: UploadFile, pos: bool, model: str):
     df = pd.read_excel(file, header=1)
     df.dropna(axis=0, how="any", subset=df.columns[:2])
     df = df.fillna("")
