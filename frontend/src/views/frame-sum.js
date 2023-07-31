@@ -6,6 +6,11 @@ import './frame-sum.css'
 
 import logo from "assets/external/embrainlogo-200h-200h.png";
 
+import { DownloadOutlined } from '@ant-design/icons';
+
+
+
+
 const FrameSum = (props) => {
   return (
     <div className="frame-sum-container">

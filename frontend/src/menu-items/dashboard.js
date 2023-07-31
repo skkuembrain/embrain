@@ -15,13 +15,22 @@ const dashboard = {
   children: [
     {
       id: 'dashboard',
-      title: 'Open coding',
+      title: 'SUM & S.A & K.E',
       type: 'item',
       url: '/dashboard/default',
       icon: icons.FormOutlined,
       breadcrumbs: false
+    },
+    {
+      id: 'dashboard2',
+      title: 'Opencoding',
+      type: 'item',
+      url: '/dashboard_copy',
+      icon: icons.FormOutlined,
+      breadcrumbs: false
     }
   ]
+
 };
 
 export default dashboard;
