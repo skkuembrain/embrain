@@ -1,9 +1,9 @@
 // assets
-import { DashboardOutlined } from '@ant-design/icons';
+import { FormOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
-  DashboardOutlined
+  FormOutlined
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -15,13 +15,22 @@ const dashboard = {
   children: [
     {
       id: 'dashboard',
-      title: 'Dashboard',
+      title: 'SUM & S.A & K.E',
       type: 'item',
       url: '/dashboard/default',
-      icon: icons.DashboardOutlined,
+      icon: icons.FormOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'dashboard2',
+      title: 'Opencoding',
+      type: 'item',
+      url: '/dashboard_copy',
+      icon: icons.FormOutlined,
       breadcrumbs: false
     }
   ]
+
 };
 
 export default dashboard;
