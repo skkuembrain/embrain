@@ -22,33 +22,33 @@ const icons = {
 
 const utilities = {
   id: 'utilities',
-  title: 'Utilities',
+  title: 'Model',
   type: 'group',
   children: [
     {
       id: 'util-typography',
-      title: 'Typography',
+      title: 'koGPT',
       type: 'item',
       url: '/typography',
       icon: icons.FontSizeOutlined
     },
     {
       id: 'util-color',
-      title: 'Color',
+      title: 'koGPT2',
       type: 'item',
       url: '/color',
       icon: icons.BgColorsOutlined
     },
     {
       id: 'util-shadow',
-      title: 'Shadow',
+      title: 'polyglotKo',
       type: 'item',
       url: '/shadow',
       icon: icons.BarcodeOutlined
     },
     {
       id: 'ant-icons',
-      title: 'Ant Icons',
+      title: 'trinity',
       type: 'item',
       url: '/icons/ant',
       icon: icons.AntDesignOutlined,
