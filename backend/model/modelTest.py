@@ -101,3 +101,36 @@ class TextGenerator():
                 list_result.append(generator(content, do_sample=True, max_length=256))
 
         return result
+    
+    
+    async def formatter(result):
+        sentence = ''
+
+        # response와 sentence 추출
+        for paragraph in result.split('\n\n'):
+            if paragraph.startswith('### Response(응답):\n'):
+                result = paragraph.split('\n')[1]
+                result = result[1:]
+                break
+            elif paragraph.startswith('### Input(입력):\n'):
+                sentence = paragraph.split('\n')[1]
+                sentence = sentence[1:]
+
+
+        result = result.replace(' ', '').replace('><', '>#<').split('#')
+
+        # prediction 제거
+        preds = []
+        for vocab in result:
+            if vocab == '</s>' or '</s>' in vocab:
+                break
+            if '>' not in vocab:
+                break
+            if vocab in preds:
+                break
+            # words = vocab.split(',')
+            # first_word = words[0].replace(',','').replace('<', '')
+            # second_word = words[1].replace(',', '').replace('>', '')
+            preds.append(vocab)
+        
+        return preds

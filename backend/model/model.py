@@ -34,8 +34,9 @@ async def inference_text(input: TextInferenceInput):
 
     inferenceText = TextGenerator(input.model)
     result = await inferenceText.generate(input.model, modelPrompt)
-    #TODO: process result
-    return result[0]["generated_text"]
+    results = await inferenceText.formatter(result)
+
+    return results
 
 
 @router.post('/oc/file')
