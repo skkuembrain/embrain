@@ -17,7 +17,9 @@ const AntIcons = () => (
   <ComponentSkeleton>
     <MainCard title="Ant Icons">
       <IFrameWrapper title="Ant Icon" width="100%" src="https://ant.design/components/icon/" />
+      <button>하이</button>
     </MainCard>
+    
   </ComponentSkeleton>
 );
 
