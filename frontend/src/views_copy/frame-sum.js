@@ -26,9 +26,12 @@ import link from 'assets/images/paperclip-solid.svg'
 
 
 const FrameSum = () => {
+
+
   const [selectedModel, setSelectedModel] = useState('kogpt2');
   const [openCoding, setOpenCoding] = useState(true);
-  const [analysisType, setAnalysisType] = useState('긍정 질문');
+  const [analysisType, setAnalysisType] = useState(openCoding ? '긍정 질문' : 'ALL');
+
   const [filePreview, setFilePreview] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [answer, setAnswer] = useState(''); // 답변을 저장할 상태 변수
@@ -79,6 +82,23 @@ const FrameSum = () => {
 
   const chatHistoryRef = useRef(null);
   const inputRef = useRef(null);
+
+
+
+  useEffect(() => {
+    const chatHistoryDiv = chatHistoryRef.current;
+    chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
+  }, [chatHistory]);
+  
+  useEffect(() => {
+    if (!openCoding) {
+      setAnalysisType('ALL');
+    }
+    else{
+      setAnalysisType('긍정 질문');
+    }
+  }, [openCoding]);
+  
 
   const getCurrentTimeInKorean = () => {
     const now = new Date();
@@ -139,6 +159,7 @@ const FrameSum = () => {
           <TextField
             select
             label="모델 선택"
+
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
           >
@@ -189,26 +210,27 @@ const FrameSum = () => {
         )}
 
     <div className="frame-sum-frame">
-      <div className="frame-sum-dialog" ref={chatHistoryRef}>
-        {chatHistory.map((item, index) => (
-          <div key={index} className={`frame-sum-${item.user ? 'user' : 'model'} ${item.user ? 'user-message' : 'model-message'}`}>
-            <div className={`frame-sum-${item.user ? 'date-user-name' : 'embrain-model'}`}>
-              <div className={`frame-sum-${item.user ? 'text-date' : 'logo-embrain'}`}>
-                {item.user ? getCurrentTimeInKorean() : <img alt="logo" src={logo} className="frame-sum-logo-embrain1" style={{ width: "20px", height: "20px" }} />}
+      <div className='frame-dialog' ref={chatHistoryRef}>
+        <div className="frame-sum-dialog" ref={chatHistoryRef}>
+          {chatHistory.map((item, index) => (
+            <div key={index} className={`frame-sum-${item.user ? 'user' : 'model'} ${item.user ? 'user-message' : 'model-message'}`}>
+              <div className={`frame-sum-${item.user ? 'date-user-name' : 'embrain-model'}`}>
+                <div className={`frame-sum-${item.user ? 'text-date' : 'logo-embrain'}`}>
+                  {item.user ? getCurrentTimeInKorean() : <img alt="logo" src={logo} className="frame-sum-logo-embrain1" style={{ width: "20px", height: "20px" }} />}
+                </div>
+                {!item.user && <span className="frame-sum-text-user-name">Model</span>}
               </div>
-              {!item.user && <span className="frame-sum-text-user-name">Model</span>}
+              <div className={`frame-sum-${item.user ? 'users-input-data' : 'model-output-data'}`}>
+                <span className={`frame-sum-${item.user ? 'what-user-text' : 'text10'}`}>
+                  {item.text}
+                </span>
+                {!item.user && <span className="frame-sum-text11"><span>2 mb</span></span>}
+              </div>
             </div>
-            <div className={`frame-sum-${item.user ? 'users-input-data' : 'model-output-data'}`}>
-              <span className={`frame-sum-${item.user ? 'what-user-text' : 'text10'}`}>
-                {item.text}
-              </span>
-              {!item.user && <span className="frame-sum-text11"><span>2 mb</span></span>}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>  
+
       </div>
-
-
         <div className="frame-sum-user-input">
           <div className="frame-sum-input">
             <div className="frame-sum-input-box">
@@ -234,7 +256,7 @@ const FrameSum = () => {
                   onKeyPress={handleKeyPress}
                   onFocus={handleInputFocus} // 입력창이 포커스되면 기본 플레이스홀더를 제거
                   ref={inputRef}
-                  style={{ height: "5em", resize: "none" }}
+                  style={{ height: "5em", resize: "none",  border: "1px solid #ddd"  }}
                 ></textarea>
                 <button className="frame-sum-send-button" onClick={sendMessage}>
                   <span>전송</span>
