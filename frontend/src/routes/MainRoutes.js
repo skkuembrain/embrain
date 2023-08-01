@@ -3,7 +3,7 @@ import { lazy } from 'react';
 // project import
 import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
-// import DashboardDefaultCopy from 'pages/dashboard_copy/index';
+// import DashboardDefaultCopy from 'pages/dashboard_opencoding/index';
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
@@ -17,7 +17,7 @@ const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
 
-const DashboardDefaultCopy = Loadable(lazy(()=> import('pages/dashboard_copy')));
+const DashboardDefaultCopy = Loadable(lazy(()=> import('pages/dashboard_opencoding')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -59,7 +59,7 @@ const MainRoutes = {
       element: <AntIcons />
     },
     {
-      path: 'dashboard_copy',
+      path: 'dashboard_opencoding',
       element: <DashboardDefaultCopy/>
     }
   ]

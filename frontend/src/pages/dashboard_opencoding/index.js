@@ -18,7 +18,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import XLSX from 'xlsx'
+import * as XLSX from 'xlsx'
 const avatarSX = {
   width: 36,
   height: 36,
@@ -63,36 +63,70 @@ const DashboardDefaultCopy = () => {
   const openCodingAnalysisOptions = ['긍정 질문', '부정 질문'];
   const nonOpenCodingAnalysisOptions = ['ALL', 'Summary', 'Sentiment analysis', 'Keyword Extraction'];
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const xlsxData = XLSX.parse(e.target.result);
-          // const data = new Uint8Array(e.target.result); // Convert the file data to Uint8Array
-          // const workbook = XLSX.read(data, { type: 'array' }); // Read the workbook using xlsx library
-          // const firstSheetName = workbook.SheetNames[0]; // Get the first sheet name
-          // const worksheet = workbook.Sheets[firstSheetName]; // Get the worksheet
-          // const xlsxData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Convert worksheet to JSON
-          setFilePreview(xlsxData);
-          setUploadedFileName(file.name);
-        } catch (error) {
-          setFilePreview(null);
-          setUploadedFileName('');
-        }
-      };
-      reader.readAsText(file);
-    } else {
-      setFilePreview(null);
-      setUploadedFileName('');
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       try {
+  //         // const xlsxData = XLSX.parse(e.target.result);
+  //         // const workbook = XLSX.read(data, { type: 'binary' }); // Read the workbook using xlsx library
+  //         const data = reader.result;
+  //         const workbook = XLSX.read(data, { type: 'binary' });
+  //         const firstSheetName = workbook.SheetNames[0]; // Get the first sheet name
+  //         const worksheet = workbook.Sheets[firstSheetName]; // Get the worksheet
+  //         const xlsxData = XLSX.utils.sheet_to_json(worksheet); // Convert worksheet to JSON
+  //         console.log(xlsxData)
+  //         setFilePreview(xlsxData);
+  //         setUploadedFileName(file.name);
+  //       } catch (error) {
+  //         setFilePreview(null);
+  //         setUploadedFileName('');
+  //       }
+  //     };
+  //     reader.readAsText(file);
+  //   } else {
+  //     setFilePreview(null);
+  //     setUploadedFileName('');
+  //   }
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const xlsxData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            setFilePreview(xlsxData);
+            setUploadedFileName(file.name);
+          } catch (error) {
+            console.error('Error reading the file:', error);
+            setFilePreview(null);
+            setUploadedFileName('');
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        setFilePreview(null);
+        setUploadedFileName('');
+      }
     }
-  };
+
 
   const handleSend = () => {
     // 전송 로직을 추가하세요.
+    changeDisplay("textfield")
+    changeDisplay("filepreview")
   };
-
+  function changeDisplay(id) {
+    if (document.getElementById(id).style.display == "none")
+      document.getElementById(id).style.display = "block";
+    else
+      document.getElementById(id).style.display = "none";
+  } 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75} alignItems="center">
       <Grid item xs={12} md={1} lg={12}>
@@ -167,6 +201,7 @@ const DashboardDefaultCopy = () => {
           <Typography variant="body1">{uploadedFileName}</Typography>
 
           <TextField
+          id = "textfield"
             multiline
             fullWidth
             placeholder="텍스트를 입력하세요."
@@ -179,17 +214,39 @@ const DashboardDefaultCopy = () => {
               ),
             }}
           />
+          {filePreview && (
+        <div id = "filepreview" style={{ maxHeight: '150px', overflowY: 'auto', display: "None" }}>
+        <table border="1">
+          <thead>
+            <tr>
+              {filePreview[0].map((cell, index) => (
+                <th key={index}>{cell}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filePreview.slice(1).map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((cell, cellIndex) => (
+                  <td key={cellIndex}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      )}
           <Button variant="contained" onClick={handleSend}>
                   전송
                 </Button>
 
-          {filePreview && (
+          {/* {filePreview && (
             <Box sx={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'hidden' }}>
               <Typography variant="h6">파일 미리보기</Typography>
-              <pre>{XLSX.stringify(filePreview, null, 2)}</pre>
+              <pre>{JSON.stringify(filePreview, null, 2)}</pre>
             </Box>
-          )}
-
+          )} */}
+  
           
         </Grid>
       </Grid>

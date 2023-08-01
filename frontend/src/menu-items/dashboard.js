@@ -25,7 +25,7 @@ const dashboard = {
       id: 'dashboard2',
       title: 'Opencoding',
       type: 'item',
-      url: '/dashboard_copy',
+      url: '/dashboard_opencoding',
       icon: icons.FormOutlined,
       breadcrumbs: false
     }
