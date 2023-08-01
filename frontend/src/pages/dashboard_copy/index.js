@@ -34,13 +34,8 @@ const actionSX = {
   transform: 'none',
 };
 
-const styles = {
-  input: {
-    width: '100%', // 너비를 원하는 값으로 설정하세요.
-    height: '150px', // 원하는 고정 높이로 설정하세요.
-    overflowY: 'auto', // 넘어갈 경우 스크롤되도록 설정합니다.
-  },
-};
+import Frame159 from 'views_copy/frame-sum'
+
 
 const DashboardDefaultCopy = () => {
   const [selectedModel, setSelectedModel] = useState('kogpt2');
@@ -48,6 +43,7 @@ const DashboardDefaultCopy = () => {
   const [analysisType, setAnalysisType] = useState('긍정 질문');
   const [filePreview, setFilePreview] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState('');
+  const [answer, setAnswer] = useState(''); // 답변을 저장할 상태 변수
 
   const models = [
     { value: 'kogpt2', label: 'KoGPT2' },
@@ -85,11 +81,15 @@ const DashboardDefaultCopy = () => {
   };
 
   const handleSend = () => {
-    // 전송 로직을 추가하세요.
+    // 이 부분에 답변 생성 로직을 추가합니다.
+    // 여기에서 llm 모델을 사용하여 답변을 생성하고, setAnswer로 상태 변수에 저장합니다.
+    const generatedAnswer = '여기에 답변을 생성하는 로직을 추가하세요.'; // 임시로 답변을 생성하는 예시입니다.
+    setAnswer(generatedAnswer);
   };
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75} alignItems="center">
+
       <Grid item xs={12} md={1} lg={12}>
         <Grid container alignItems="center" justifyContent="space-between">
           <FormControl fullWidth variant="outlined" size="small">
@@ -147,43 +147,15 @@ const DashboardDefaultCopy = () => {
             </FormControl>
           )}
 
-          <input
-            accept=".json"
-            style={{ display: 'none' }}
-            id="file-input"
-            type="file"
-            onChange={handleFileChange}
-          />
-          <label htmlFor="file-input">
-            <Button variant="contained" component="span">
-              파일 업로드
-            </Button>
-          </label>
-          <Typography variant="body1">{uploadedFileName}</Typography>
 
-          <TextField
-            multiline
-            fullWidth
-            placeholder="텍스트를 입력하세요."
-            variant="outlined"
-            InputProps={{
-              style: styles.input,
-              endAdornment: (
-                <InputAdornment position="end">
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button variant="contained" onClick={handleSend}>
-                  전송
-                </Button>
+        <Grid item xs={12} md={1} lg={12}>
+            <Grid container alignItems="center" justifyContent="space-between">
+              <Frame159/>
+            </Grid>
+          </Grid>
 
-          {filePreview && (
-            <Box sx={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'hidden' }}>
-              <Typography variant="h6">파일 미리보기</Typography>
-              <pre>{JSON.stringify(filePreview, null, 2)}</pre>
-            </Box>
-          )}
+
+  
 
           
         </Grid>

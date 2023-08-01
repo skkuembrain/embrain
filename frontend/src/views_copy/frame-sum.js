@@ -135,9 +135,6 @@ const FrameSum = () => {
             </div>
           </div>
           <div className="frame-sum-cancel-guide">
-            <span className="frame-sum-text-cancel-guide">
-              <span>ESC or Click to cancel</span>
-            </span>
           </div>
         </div>
       </div>
