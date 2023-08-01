@@ -4,10 +4,6 @@ import pandas as pd
 import urllib.request
 import random
 from datetime import datetime
-from soynlp import DoublespaceLineCorpus
-from soynlp.word import WordExtractor
-from soynlp.noun import LRNounExtractor_v2
-from soynlp.tokenizer import LTokenizer
 from transformers import pipeline, AutoModel, AutoModelForCausalLM
 import transformers
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
@@ -116,7 +112,6 @@ class TextGenerator():
                 sentence = paragraph.split('\n')[1]
                 sentence = sentence[1:]
 
-
         result = result.replace(' ', '').replace('><', '>#<').split('#')
 
         # prediction 제거
@@ -124,7 +119,7 @@ class TextGenerator():
         for vocab in result:
             if vocab == '</s>' or '</s>' in vocab:
                 break
-            if '>' not in vocab:
+            if '>' not in vocab or ',' not in vocab:
                 break
             if vocab in preds:
                 break
