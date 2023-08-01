@@ -1,5 +1,7 @@
 from fastapi import APIRouter, File, UploadFile, Depends
-from ..service import TextGenerator
+from service import OpencodingGenerator
+from fastapi_restful.inferring_router import InferringRouter
+from fastapi_utils.cbv import cbv
 import pandas as pd
 import xlsxwriter
 from pydantic import BaseModel
@@ -10,16 +12,25 @@ class TextInferenceInput(BaseModel):
     pos: bool
     model: str
 
-
+'''
 router = APIRouter(
 	prefix="/oc",
-    tags=["opencoding"]
-)
+    tags=["opencoding"
+'''
 
+router = InferringRouter()
+
+@cbv(router)
 class Opencoding:
-    svc: TextGenerator = Depends()
+    # svc: TextGenerator = Depends(TextGenerator)
+    print('**** setting Opencoding models ****')
+    svc = OpencodingGenerator()
 
-    @router.post('/text')
+    @router.get('/oc/hello')
+    async def hello(self):
+        return 'hello'
+
+    @router.post('/oc/text')
     async def inference_text(self, input: TextInferenceInput):
 
         if input.pos:
@@ -34,14 +45,15 @@ class Opencoding:
             "### Instruction(명령어):\n{}\n\n### Input(입력):\n{}\n\n### Response(응답):".format(prompt, input.text)
         )
 
-        result = await self.svc.generate(input.model, modelPrompt)
-        results = await self.svc.formatter(result)
+        result = await self.svc.generateText(input.model, modelPrompt)
+        print(result)
+        results = await self.svc.formatter(result[0])
 
         return results
 
 
-    @router.post('/file')
-    async def inference_file(file: UploadFile, pos: bool, model: str):
+    @router.post('/oc/file')
+    async def inference_file(self, file: UploadFile, pos: bool, model: str):
 
         if pos:
             prompt = '다음 텍스트는 긍정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
@@ -79,8 +91,3 @@ class Opencoding:
         # TODO: connect model code
 
         return file.filename
-
-    @router.post('/sumsa')
-    async def summary_text(text:str):
-        result = 'summary test'
-        return result

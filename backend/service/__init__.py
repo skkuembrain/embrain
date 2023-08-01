@@ -1,1 +1,2 @@
-from .opencoding import TextGenerator
+from .opencoding import OpencodingGenerator
+from .summary import SummaryGenerator

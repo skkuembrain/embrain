@@ -19,55 +19,36 @@ DEFAULT_EOS_TOKEN = "</s>"
 DEFAULT_BOS_TOKEN = "</s>"
 DEFAULT_UNK_TOKEN = "</s>"
 
-KOGPT2_PATH = 'model/opencoding/kogpt2_epoch_25_lr_1e-05'
-POLYGLOT_PATH = 'model/opencoding/polyglot_epoch_50/checkpoint-264000'
-TRINITY_PATH = 'PLEASE ADD PATH !!!!!!' #TODO
+TRINITY_PATH = 'model/summary/test_trinity_dataver4_12_4_1e-4/checkpoint-7500'
 
-class OpencodingGenerator():
+class SummaryGenerator():
     def __init__(self):
-        # kogpt2
-        print('---setting kogpt2---')
-        self.kogpt2 = AutoModelForCausalLM.from_pretrained(KOGPT2_PATH)
-        kogpt2_tokenizer = transformers.AutoTokenizer.from_pretrained(
-            'skt/kogpt2-base-v2',
-            padding_side="right",
-            model_max_length=256,
-        )
-        kogpt2_tokenizer.add_special_tokens(
-            {
-                "eos_token": DEFAULT_EOS_TOKEN,
-                "bos_token": DEFAULT_BOS_TOKEN,
-                "unk_token": DEFAULT_UNK_TOKEN,
-            }
-        )    
-        kogpt2_tokenizer.pad_token = kogpt2_tokenizer.eos_token
-        self.kogpt2_tokenizer = kogpt2_tokenizer
 
-        # polyglot
-        print('---setting polyglot---')
-        config = PeftConfig.from_pretrained(POLYGLOT_PATH)
-        model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path)
-        self.polyglot = PeftModel.from_pretrained(model, POLYGLOT_PATH)
-        self.polyglot_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-
-        #TODO: trinity
-        '''
-        print('---setting trinity---')
+        # trinity (summary) on GPU
+        print('---setting trinity(summary)---')
         config = PeftConfig.from_pretrained(TRINITY_PATH)
-        model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path)
+        print('setting model')
+        model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map = 'auto')
+        print('loading model')
         self.trinity = PeftModel.from_pretrained(model, TRINITY_PATH)
+        print('loading tokenizer')
         self.trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-        '''
 
-    async def generateText(self, model, prompt):
+        #TODO: sentiment
 
-        if model == 'kogpt2':
-            model = self.kogpt2
-            tokenizer = self.kogpt2_tokenizer
-        elif model == 'polyglot':
-            model = self.polyglot
-            tokenizer = self.polyglot_tokenizer
-        elif model == 'trinity':
+        #TODO: keyword
+
+        
+
+    async def generateText(self, model, task, prompt):
+
+        if task == 'summary':
+            model = self.trinity
+            tokenizer = self.trinity_tokenizer
+        elif task == 'sentiment':
+            model = self.polyglot #TODO
+            tokenizer = self.polyglot_tokenizer #TODO
+        elif task == 'keyword':
             self.model = 'modelPath' #TODO
             self.tokenizer = 'tokenizer' #TODO
 
@@ -90,6 +71,7 @@ class OpencodingGenerator():
         else:
             for content in tqdm(list_prompt):
                 list_result.append(generator(content, do_sample=True, max_length=256))
+
         '''
 
         model.to('cuda')
@@ -99,19 +81,18 @@ class OpencodingGenerator():
                 return_tensors='pt',
                 return_token_type_ids=False
             ).to('cuda'),
-            max_new_tokens=48,
+            max_new_tokens=128,
             early_stopping=True,
             do_sample=True,
             eos_token_id=2,
         )
         print([tokenizer.decode(gened[0])])
 
-        return [tokenizer.decode(gened[0])]
+        return tokenizer.decode(gened[0])
     
     
     async def formatter(self, result:str):
         sentence = ''
-
         # response와 sentence 추출
         for paragraph in result.split('\n\n'):
             if paragraph.startswith('### Response(응답):'):
@@ -121,21 +102,5 @@ class OpencodingGenerator():
             elif paragraph.startswith('### Input(입력):\n'):
                 sentence = paragraph.split('\n')[1]
                 sentence = sentence[1:]
-
-        result = result.replace(' ', '').replace('><', '>#<').split('#')
-
-        # prediction 제거
-        preds = []
-        for vocab in result:
-            if vocab == '</s>' or '</s>' in vocab:
-                break
-            if '>' not in vocab or ',' not in vocab:
-                break
-            if vocab in preds:
-                break
-            # words = vocab.split(',')
-            # first_word = words[0].replace(',','').replace('<', '')
-            # second_word = words[1].replace(',', '').replace('>', '')
-            preds.append(vocab)
         
-        return preds
+        return result
