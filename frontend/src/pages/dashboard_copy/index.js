@@ -90,63 +90,6 @@ const DashboardDefaultCopy = () => {
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75} alignItems="center">
 
-      <Grid item xs={12} md={1} lg={12}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <FormControl fullWidth variant="outlined" size="small">
-            <TextField
-              select
-              label="모델 선택"
-              value={selectedModel}
-              onChange={(e) => setSelectedModel(e.target.value)}
-            >
-              {models.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-          <Box sx={{ height: 50 }} />
-
-          <FormControl fullWidth variant="outlined" size="small">
-            <TextField
-              select
-              label="분석 선택"
-              value={openCoding}
-              onChange={(e) => setOpenCoding(e.target.value)}
-            >
-              {openCodingOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-          <Box sx={{ height: 100 }} />
-
-          {openCoding !== null && (
-            <FormControl fullWidth variant="outlined" size="small">
-              <TextField
-                select
-                label={openCoding ? 'Opencoding 프롬프트 선택' : '분석 방법 선택'}
-                value={analysisType}
-                onChange={(e) => setAnalysisType(e.target.value)}
-              >
-                {openCoding
-                  ? openCodingAnalysisOptions.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))
-                  : nonOpenCodingAnalysisOptions.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-              </TextField>
-            </FormControl>
-          )}
-
 
         <Grid item xs={12} md={1} lg={12}>
             <Grid container alignItems="center" justifyContent="space-between">
@@ -157,9 +100,7 @@ const DashboardDefaultCopy = () => {
 
   
 
-          
-        </Grid>
-      </Grid>
+  
     </Grid>
   );
 };

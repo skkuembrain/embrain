@@ -1,15 +1,62 @@
 import React, { useState, useRef, useEffect } from 'react';
 import logo from "assets/external/embrainlogo-200h-200h.png";
 import 'views_copy/frame-sum-copy.css'
+import {
+  FormControl,
+  InputAdornment,
+  OutlinedInput,
+  Avatar,
+  AvatarGroup,
+  Box,
+  Button,
+  Grid,
+  List,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemSecondaryAction,
+  ListItemText,
+  MenuItem,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 
 import link from 'assets/images/paperclip-solid.svg'
 
 
 const FrameSum = () => {
+  const [selectedModel, setSelectedModel] = useState('kogpt2');
+  const [openCoding, setOpenCoding] = useState(true);
+  const [analysisType, setAnalysisType] = useState('긍정 질문');
+  const [filePreview, setFilePreview] = useState(null);
+  const [uploadedFileName, setUploadedFileName] = useState('');
+  const [answer, setAnswer] = useState(''); // 답변을 저장할 상태 변수
+
+  const models = [
+    { value: 'kogpt2', label: 'KoGPT2' },
+    { value: 'trinity', label: 'Trinity' },
+    { value: 'polyglot', label: 'Polyglot' },
+  ];
+
+  const openCodingOptions = [
+    { value: true, label: '정량분석' },
+    { value: false, label: '정성분석' },
+  ];
+
+  const openCodingAnalysisOptions = ['긍정 질문', '부정 질문'];
+  const nonOpenCodingAnalysisOptions = ['ALL', 'Summary', 'Sentiment analysis', 'Keyword Extraction'];
+
+
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [inputPlaceholder, setInputPlaceholder] = useState('Generate message..'); // 기본 플레이스홀더 설정
+
+
+
+
+
+
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -56,6 +103,11 @@ const FrameSum = () => {
     setUserInput('');
 
     const reply = '모델이 생성한 답변입니다.';
+    // const reply = await axios.post('localhost:8000/oc/text', {
+    //   text: '사용자가 입력한 텍스트',
+    //   pos: '긍정이면 True, 부정이면 False',
+    //   model: 'polyglot, kogpt2, trinity 중에 하나'
+    // })
     setTimeout(() => {
       const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
       setChatHistory(updatedChatHistoryWithReply);
@@ -78,6 +130,64 @@ const FrameSum = () => {
   }, [chatHistory]);
 
   return (
+
+    <Grid container rowSpacing={4.5} columnSpacing={2.75} alignItems="center">
+
+    <Grid item xs={12} md={1} lg={12}>
+      <Grid container alignItems="center" justifyContent="space-between">
+        <FormControl variant="outlined" size="small" style={{width: "33%"}}>
+          <TextField
+            select
+            label="모델 선택"
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+          >
+            {models.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>
+
+        <FormControl variant="outlined" size="small" style={{width: "33%"}}>
+          <TextField
+            select
+            label="분석 선택"
+            value={openCoding}
+            onChange={(e) => setOpenCoding(e.target.value)}
+          >
+            {openCodingOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>
+
+        {openCoding !== null && (
+          <FormControl variant="outlined" size="small" style={{width: "33%"}}>
+            <TextField
+              select
+              label={openCoding ? 'Opencoding 프롬프트 선택' : '분석 방법 선택'}
+              value={analysisType}
+              onChange={(e) => setAnalysisType(e.target.value)}
+            >
+              {openCoding
+                ? openCodingAnalysisOptions.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))
+                : nonOpenCodingAnalysisOptions.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+            </TextField>
+          </FormControl>
+        )}
+
     <div className="frame-sum-frame">
       <div className="frame-sum-dialog" ref={chatHistoryRef}>
         {chatHistory.map((item, index) => (
@@ -97,48 +207,53 @@ const FrameSum = () => {
           </div>
         ))}
       </div>
-      <div className="frame-sum-user-input">
-        <div className="frame-sum-input">
-          <div className="frame-sum-input-box">
-            <div className="frame-sum-inner-input-box">
-              
-              <input
-                  type="file"
-                  id="file-input"
-                  accept=".csv, .xlsx"
-                  style={{ display: 'none' }}
-                  onChange={handleFileSelect}
-                />
-                <img
-                  alt="unnamed932w7rR4ftransformed11226"
-                  src={link}
-                  className="frame-sum-logo-embrain1"
-                />
-                {/* <label htmlFor="file-input" className="frame-sum-file-button">
-                  파일 선택
-                </label> */}
+
+
+        <div className="frame-sum-user-input">
+          <div className="frame-sum-input">
+            <div className="frame-sum-input-box">
+              <div className="frame-sum-inner-input-box">
                 
-              <textarea
-                placeholder={inputPlaceholder} // 상태 변수에 저장된 플레이스홀더를 적용
-                autoFocus
-                className="frame-sum-textarea textarea"
-                value={userInput}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
-                onFocus={handleInputFocus} // 입력창이 포커스되면 기본 플레이스홀더를 제거
-                ref={inputRef}
-                style={{ height: "5em", resize: "none" }}
-              ></textarea>
-              <button className="frame-sum-send-button" onClick={sendMessage}>
-                <span>전송</span>
-              </button>
+                <input
+                    type="file"
+                    id="file-input"
+                    accept=".csv, .xlsx"
+                    style={{ display: 'none' }}
+                    onChange={handleFileSelect}
+                  />
+                  <label htmlFor="file-input" className="frame-sum-file-button">
+                    파일 선택
+                  </label>
+                  
+                <textarea
+                  placeholder={inputPlaceholder} // 상태 변수에 저장된 플레이스홀더를 적용
+                  autoFocus
+                  className="frame-sum-textarea textarea"
+                  value={userInput}
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPress}
+                  onFocus={handleInputFocus} // 입력창이 포커스되면 기본 플레이스홀더를 제거
+                  ref={inputRef}
+                  style={{ height: "5em", resize: "none" }}
+                ></textarea>
+                <button className="frame-sum-send-button" onClick={sendMessage}>
+                  <span>전송</span>
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="frame-sum-cancel-guide">
+            <div className="frame-sum-cancel-guide">
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    
+        
+      </Grid>
+    </Grid>
+  </Grid>
+
+
+  
   );
 };
 

@@ -9,14 +9,14 @@
 }
 .frame-sum-frame {
   width: 100%;
-  height: 500px;
+  height: 200px;
   display: flex;
-  overflow: hidden;
   position: relative;
   align-self: center;
   align-items: center;
   flex-shrink: 0;
   justify-content: flex-start;
+  overflow-y: scroll;
 }
 .frame-sum-user-input {
   gap: 12px;
@@ -171,26 +171,7 @@
   width: 27px;
   height: 21px;
 }
-.frame-sum-cancel-guide {
-  gap: 4px;
-  display: flex;
-  align-self: stretch;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.frame-sum-text-cancel-guide {
-  color: var(--dl-color-gray-400);
-  height: auto;
-  flex-grow: 1;
-  font-size: 12px;
-  font-style: Regular;
-  text-align: right;
-  font-family: Inter;
-  font-weight: 400;
-  line-height: normal;
-  font-stretch: normal;
-  text-decoration: none;
-}
+
 .frame-sum-dialog {
   gap: 8px;
   top: 0px;
@@ -256,7 +237,7 @@
 }
 .frame-sum-users-input-data {
   gap: 10px;
-  width: 700px;
+  width: 100%;
   display: flex;
   padding: 16px;
   align-items: flex-start;
@@ -542,7 +523,7 @@
   .frame-sum-dialog {
     flex: 1;
     left: 0px;
-    width: 1199px;
+    width: 100%;
     align-self: flex-start;
   }
   .frame-sum-input1 {
