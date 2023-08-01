@@ -19,13 +19,14 @@ import {
   Typography,
 } from '@mui/material';
 import * as XLSX from 'xlsx'
+import { file } from '../../../../../../../AppData/Local/Microsoft/TypeScript/5.1/node_modules/@babel/types/lib/index';
 const avatarSX = {
   width: 36,
   height: 36,
   fontSize: '1rem',
 };
 
-const actionSX = {
+const actiosnSX = {
   mt: 0.75,
   ml: 1,
   top: 'auto',
@@ -115,18 +116,14 @@ const DashboardDefaultCopy = () => {
       }
     }
 
-
   const handleSend = () => {
-    // 전송 로직을 추가하세요.
-    changeDisplay("textfield")
-    changeDisplay("filepreview")
+    if (filePreview) {
+      setFilePreview(null);
+      setUploadedFileName('');
+    }
   };
-  function changeDisplay(id) {
-    if (document.getElementById(id).style.display == "none")
-      document.getElementById(id).style.display = "block";
-    else
-      document.getElementById(id).style.display = "none";
-  } 
+
+  
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75} alignItems="center">
       <Grid item xs={12} md={1} lg={12}>
@@ -199,7 +196,8 @@ const DashboardDefaultCopy = () => {
             </Button>
           </label>
           <Typography variant="body1">{uploadedFileName}</Typography>
-
+          
+          {!filePreview && (
           <TextField
           id = "textfield"
             multiline
@@ -214,8 +212,9 @@ const DashboardDefaultCopy = () => {
               ),
             }}
           />
+          )}
           {filePreview && (
-        <div id = "filepreview" style={{ maxHeight: '150px', overflowY: 'auto', display: "None" }}>
+        <div id = "filepreview" style={{ maxHeight: '150px', overflowY: 'auto' }}>
         <table border="1">
           <thead>
             <tr>
