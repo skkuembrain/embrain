@@ -183,10 +183,12 @@
   left: 0px;
   width: 100%;
   display: flex;
+  justify-content: flex-start;
   position: absolute;
   align-items: center;
   flex-direction: column;
 }
+
 .frame-sum-input1 {
   gap: 24px;
   width: 100%;
@@ -261,7 +263,10 @@
 .frame-sum-users-input-data {
   gap: 10px;
   width: 100%;
+  min-width: 100%;
+  max-width: 700px;
   display: flex;
+  flex-wrap: wrap; /* 텍스트가 너무 길 경우 자동으로 줄바꿈 */
   padding: 20px;
   align-items: flex-start;
   flex-shrink: 0;
@@ -388,10 +393,16 @@
   font-stretch: normal;
   text-decoration: none;
 }
+.frame-sum-model-message {
+  justify-content: flex-start;
+  background-color: #f0f0f0;
+}
+
 .frame-sum-model-output-data {
   gap: 10px;
-  width: 700px;
-  display: flex;
+  width: 100%; /* 가로폭을 100%로 설정 */
+  max-width: 700px; /* 최대 너비를 700px로 설정 */
+  margin-left: auto; /* 왼쪽에 붙이기 위해 오른쪽 마진을 auto로 설정 */
   padding: 20px;
   align-items: center;
   flex-shrink: 0;
@@ -401,7 +412,8 @@
   justify-content: flex-start;
   background-color: #ffffff;
   margin-bottom: 50px;
-
+  word-wrap: break-word; /* 텍스트가 너무 길 경우 자동으로 줄바꿈 */
+  overflow-wrap: break-word; /* 텍스트가 너무 길 경우 자동으로 줄바꿈 */
 }
 .frame-sum-frame-output-data {
   gap: 8px;
@@ -461,7 +473,8 @@
   line-height: normal;
   font-stretch: normal;
   text-decoration: none;
- }
+}
+
 @media(max-width: 1600px) {
   .frame-sum-frame {
     height: 600px;
@@ -501,6 +514,8 @@
     border-width: 1px;
   }
   .frame-sum-dialog {
+    display: flex;
+    justify-content: flex-start;
     left: 0px;
   }
   .frame-sum-input1 {
@@ -551,6 +566,8 @@
     flex: 1;
     left: 0px;
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
     align-self: flex-start;
   }
   .frame-sum-input1 {
@@ -584,8 +601,8 @@
     padding-right: 30px;
   }
   .frame-sum-model-output-data {
-    border-color: var(--dl-color-gray-900);
-    border-width: 1px;
+    width: 100%; /* 가로폭을 100%로 설정 */
+    max-width: 100%; /* 최대 너비를 100%로 설정 */
   }
   .frame-sum-text10 {
     color: rgb(0, 0, 0);

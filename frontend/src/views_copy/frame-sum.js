@@ -128,21 +128,22 @@ const FrameSum = () => {
     //   pos: 'False',
     //   model: 'trinity'
     // })
-    let reply
-    if (openCoding) {
-      reply = await axiosBase.post('oc/text', {
-        text: userInput,
-        pos: analysisType === '긍정 질문' ? true : false,
-        model: selectedModel, // 사용자가 선택한 프롬프트 값
-      }).then((res) => { return res.data });
-    } else {
-      // 분석 방법 선택일 경우
-      reply = await axiosBase.post('sum/text', {
-        text: userInput,
-        task: analysisType,
-        model: selectedModel
-      }).then((res) => { return res.data });
-    }
+    let reply = userInput;
+
+    // if (openCoding) {
+    //   reply = await axiosBase.post('oc/text', {
+    //     text: userInput,
+    //     pos: analysisType === '긍정 질문' ? true : false,
+    //     model: selectedModel, // 사용자가 선택한 프롬프트 값
+    //   }).then((res) => { return res.data });
+    // } else {
+    //   // 분석 방법 선택일 경우
+    //   reply = await axiosBase.post('sum/text', {
+    //     text: userInput,
+    //     task: analysisType,
+    //     model: selectedModel
+    //   }).then((res) => { return res.data });
+    // }
 
 
     setTimeout(() => {
@@ -232,7 +233,7 @@ const FrameSum = () => {
       <div className='frame-dialog' ref={chatHistoryRef}>
         <div className="frame-sum-dialog" ref={chatHistoryRef}>
           {chatHistory.map((item, index) => (
-            <div key={index} className={`frame-sum-${item.user ? 'user' : 'model'} ${item.user ? 'user-message' : 'model-message'}`}>
+            <div key={index} className={`frame-sum-${item.user ? 'user' : 'model'}-message`}>
               <div className={`frame-sum-${item.user ? 'date-user-name' : 'embrain-model'}`}>
                 <div className={`frame-sum-${item.user ? 'text-date' : 'logo-embrain'}`}>
                   {item.user ? getCurrentTimeInKorean() : <img alt="logo" src={logo} className="frame-sum-logo-embrain1" style={{ width: "20px", height: "20px" }} />}
@@ -243,7 +244,7 @@ const FrameSum = () => {
                 <span className={`frame-sum-${item.user ? 'what-user-text' : 'text10'}`}>
                   {item.text}
                 </span>
-                {!item.user && <span className="frame-sum-text11"><span>2 mb</span></span>}
+                {!item.user && <span className="frame-sum-text11"></span>}
               </div>
             </div>
           ))}
