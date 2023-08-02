@@ -129,21 +129,20 @@ const FrameSum = () => {
     //   model: 'trinity'
     // })
     let reply = userInput;
-
-    // if (openCoding) {
-    //   reply = await axiosBase.post('oc/text', {
-    //     text: userInput,
-    //     pos: analysisType === '긍정 질문' ? true : false,
-    //     model: selectedModel, // 사용자가 선택한 프롬프트 값
-    //   }).then((res) => { return res.data });
-    // } else {
-    //   // 분석 방법 선택일 경우
-    //   reply = await axiosBase.post('sum/text', {
-    //     text: userInput,
-    //     task: analysisType,
-    //     model: selectedModel
-    //   }).then((res) => { return res.data });
-    // }
+    if (openCoding) {
+      reply = await axiosBase.post('oc/text', {
+        text: userInput,
+        pos: analysisType === '긍정 질문' ? true : false,
+        model: selectedModel, // 사용자가 선택한 프롬프트 값
+      }).then((res) => { return res.data });
+    } else {
+      // 분석 방법 선택일 경우
+      reply = await axiosBase.post('sum/text', {
+        text: userInput,
+        task: analysisType,
+        model: selectedModel
+      }).then((res) => { return res.data });
+    }
 
 
     setTimeout(() => {
