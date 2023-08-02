@@ -204,7 +204,7 @@
 }
 .frame-sum-date-user-name {
   gap: 16px;
-  width: 700px;
+  width: 100%;
   display: flex;
   align-items: flex-end;
   flex-shrink: 0;
@@ -241,20 +241,20 @@
   font-style: Regular;
   text-align: right;
   font-family: Inter;
-  font-weight: 400;
+  
   line-height: normal;
   font-stretch: normal;
   text-decoration: none;
 }
 .frame-sum-text-user-name {
   color: rgb(136, 136, 136);
-  width: 628px;
+  width: 100%;
   height: auto;
   font-size: 18px;
   font-style: Regular;
-  text-align: left; /* 왼쪽 정렬 */
+  /* text-align: left; 왼쪽 정렬 */
   font-family: Inter;
-  font-weight: 400;
+  /* font-weight: 400; */
   line-height: normal;
   font-stretch: normal;
   text-decoration: none;
@@ -262,12 +262,13 @@
 
 .frame-sum-users-input-data {
   gap: 10px;
-  width: 100%;
-  min-width: 100%;
+  width: 80%;
+  min-width: 80%;
   max-width: 700px;
   display: flex;
   flex-wrap: wrap; /* 텍스트가 너무 길 경우 자동으로 줄바꿈 */
   padding: 20px;
+  margin-left: 20%;
   align-items: flex-start;
   flex-shrink: 0;
   border-color: var(--dl-color-gray-900);
@@ -394,13 +395,17 @@
   text-decoration: none;
 }
 .frame-sum-model-message {
+  width: 800px;
   justify-content: flex-start;
   background-color: #f0f0f0;
 }
-
+.frame-sum-user-message {
+  width: 800px;
+  justify-content: flex-start;
+}
 .frame-sum-model-output-data {
   gap: 10px;
-  width: 100%; /* 가로폭을 100%로 설정 */
+  width: 80%; /* 가로폭을 100%로 설정 */
   max-width: 700px; /* 최대 너비를 700px로 설정 */
   margin-left: auto; /* 왼쪽에 붙이기 위해 오른쪽 마진을 auto로 설정 */
   padding: 20px;
@@ -410,17 +415,21 @@
   border-width: 1px;
   border-radius: 12px;
   justify-content: flex-start;
-  background-color: #ffffff;
+  background-color: #e0e0e0;
+  margin-right: 20%;
   margin-bottom: 50px;
   word-wrap: break-word; /* 텍스트가 너무 길 경우 자동으로 줄바꿈 */
   overflow-wrap: break-word; /* 텍스트가 너무 길 경우 자동으로 줄바꿈 */
 }
+
 .frame-sum-frame-output-data {
   gap: 8px;
   display: flex;
   flex-grow: 1;
   align-items: center;
 }
+
+
 .frame-sum-icon07 {
   width: 24px;
   height: 24px;
