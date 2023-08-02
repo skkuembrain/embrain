@@ -47,7 +47,7 @@ const FrameSum = () => {
   ];
 
   const openCodingAnalysisOptions = ['긍정 질문', '부정 질문'];
-  const nonOpenCodingAnalysisOptions = ['ALL', 'Summary', 'Sentiment analysis', 'Keyword Extraction'];
+  const nonOpenCodingAnalysisOptions = ['ALL', 'summary', 'Sentiment analysis', 'Keyword Extraction'];
 
 
   const [userInput, setUserInput] = useState('');
@@ -118,17 +118,33 @@ const FrameSum = () => {
     if (userInput.trim() === '') return;
 
     const updatedChatHistory = [...chatHistory, { text: userInput, user: true }];
+    
     setChatHistory(updatedChatHistory);
     setUserInput('');
 
-    console.log('send')
-    //const reply = '' ;
-    const reply = await axiosBase.post('oc/text', {
-      text: '토레타는 맛있고 저칼로리에다가 이온보충에 좋아용',
-      pos: true,
-      model: 'polyglot'
-    }).then((res) => { return res.data })
-    console.log(reply)
+    // const reply = '모델이 생성한 답변입니다.';
+    // const reply = await axios.post('localhost:8000/oc/text', {
+    //   text: '맵고 달고 짜요',
+    //   pos: 'False',
+    //   model: 'trinity'
+    // })
+    let reply
+    if (openCoding) {
+      reply = await axiosBase.post('oc/text', {
+        text: userInput,
+        pos: analysisType === '긍정 질문' ? true : false,
+        model: selectedModel, // 사용자가 선택한 프롬프트 값
+      }).then((res) => { return res.data });
+    } else {
+      // 분석 방법 선택일 경우
+      reply = await axiosBase.post('sum/text', {
+        text: userInput,
+        task: analysisType,
+        model: selectedModel
+      }).then((res) => { return res.data });
+    }
+
+
     setTimeout(() => {
       const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
       setChatHistory(updatedChatHistoryWithReply);
@@ -140,6 +156,8 @@ const FrameSum = () => {
       sendMessage();
     }
   };
+
+
 
   const handleInputFocus = () => {
     setInputPlaceholder(''); // 입력창에 포커스되면 기본 플레이스홀더를 제거하여 빈 상태로 설정
