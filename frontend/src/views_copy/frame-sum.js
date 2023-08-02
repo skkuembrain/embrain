@@ -20,8 +20,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-
-
+import axiosBase from 'axiosConfig';
 import link from 'assets/images/paperclip-solid.svg'
 
 
@@ -115,19 +114,21 @@ const FrameSum = () => {
     setUserInput(e.target.value);
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (userInput.trim() === '') return;
 
     const updatedChatHistory = [...chatHistory, { text: userInput, user: true }];
     setChatHistory(updatedChatHistory);
     setUserInput('');
 
-    const reply = '모델이 생성한 답변입니다.';
-    // const reply = await axios.post('localhost:8000/oc/text', {
-    //   text: '사용자가 입력한 텍스트',
-    //   pos: '긍정이면 True, 부정이면 False',
-    //   model: 'polyglot, kogpt2, trinity 중에 하나'
-    // })
+    console.log('send')
+    //const reply = '' ;
+    const reply = await axiosBase.post('oc/text', {
+      text: '토레타는 맛있고 저칼로리에다가 이온보충에 좋아용',
+      pos: true,
+      model: 'polyglot'
+    }).then((res) => { return res.data })
+    console.log(reply)
     setTimeout(() => {
       const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
       setChatHistory(updatedChatHistoryWithReply);

@@ -47,9 +47,9 @@ class Opencoding:
 
         result = await self.svc.generateText(input.model, modelPrompt)
         print(result)
-        results = await self.svc.formatter(result[0])
-
-        return results
+        result = await self.svc.formatter(result[0])
+        result = ' '.join(s for s in result)
+        return result
 
 
     @router.post('/oc/file')
