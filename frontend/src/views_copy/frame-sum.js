@@ -21,8 +21,11 @@ import {
   Typography,
 } from '@mui/material';
 
+import axios from 'axios';
+
 
 import link from 'assets/images/paperclip-solid.svg'
+import { is } from '../../../../../../AppData/Local/Microsoft/TypeScript/5.1/node_modules/@babel/types/lib/index';
 
 
 const FrameSum = () => {
@@ -119,15 +122,36 @@ const FrameSum = () => {
     if (userInput.trim() === '') return;
 
     const updatedChatHistory = [...chatHistory, { text: userInput, user: true }];
+    
+
+    // const reply = '모델이 생성한 답변입니다.';
+    // const reply = await axios.post('localhost:8000/oc/text', {
+    //   text: '맵고 달고 짜요',
+    //   pos: 'False',
+    //   model: 'trinity'
+    // })
+  
+
+
+    if (openCoding) {
+      const reply = axios.post('http://localhost:8000/api/data', {
+        text: {userInput},
+        pos: analysisType === '긍정 질문' ? true : false,
+        model: {selectedModel}, // 사용자가 선택한 프롬프트 값
+      });
+    } else {
+      // 분석 방법 선택일 경우
+      const reply = axios.post('http://localhost:8000/api/data', {
+        text: {userInput},
+        task: {analysisType},
+        model: {selectedModel}
+      });
+    }
+
     setChatHistory(updatedChatHistory);
     setUserInput('');
+    
 
-    const reply = '모델이 생성한 답변입니다.';
-    // const reply = await axios.post('localhost:8000/oc/text', {
-    //   text: '사용자가 입력한 텍스트',
-    //   pos: '긍정이면 True, 부정이면 False',
-    //   model: 'polyglot, kogpt2, trinity 중에 하나'
-    // })
     setTimeout(() => {
       const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
       setChatHistory(updatedChatHistoryWithReply);
