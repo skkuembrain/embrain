@@ -21,7 +21,7 @@ DEFAULT_UNK_TOKEN = "</s>"
 
 KOGPT2_PATH = 'model/opencoding/kogpt2_epoch_25_lr_1e-05'
 POLYGLOT_PATH = 'model/opencoding/polyglot_epoch_50/checkpoint-264000'
-TRINITY_PATH = 'PLEASE ADD PATH !!!!!!' #TODO
+TRINITY_PATH = 'model/opencoding/trinity_epoch_50/checkpoint-330000' 
 
 class OpencodingGenerator():
     def __init__(self):
@@ -51,13 +51,11 @@ class OpencodingGenerator():
         self.polyglot_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
 
         #TODO: trinity
-        '''
         print('---setting trinity---')
         config = PeftConfig.from_pretrained(TRINITY_PATH)
-        model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path)
+        model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map='auto')
         self.trinity = PeftModel.from_pretrained(model, TRINITY_PATH)
         self.trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-        '''
 
     async def generateText(self, model, prompt):
 
@@ -68,8 +66,8 @@ class OpencodingGenerator():
             model = self.polyglot
             tokenizer = self.polyglot_tokenizer
         elif model == 'trinity':
-            self.model = 'modelPath' #TODO
-            self.tokenizer = 'tokenizer' #TODO
+            model = self.trinity
+            tokenizer = self.trinity_tokenizer
 
         # Using deepspeed
         '''
@@ -123,7 +121,7 @@ class OpencodingGenerator():
                 sentence = sentence[1:]
 
         result = result.replace(' ', '').replace('><', '>#<').split('#')
-
+        print(result)
         # prediction 제거
         preds = []
         for vocab in result:

@@ -11,6 +11,7 @@ import json
 import time
 import xlsxwriter
 import deepspeed
+import re
 from tqdm import tqdm
 import torch
 
@@ -90,6 +91,27 @@ class SummaryGenerator():
 
         return tokenizer.decode(gened[0])
     
+    async def summaryFormatter(self, result:str):
+        def remove_pattern(text):
+            pattern = re.compile("[\u4e00-\u9fff]+")
+            result = re.sub(pattern, "", str(text))
+            return result
+
+        # 'Response(응답)' 다음의 문자열 찾기
+        response_index = result.find('Response(응답):')
+        if response_index == -1:
+            # 'Response(응답)'가 없으면 원본 문자열 그대로 반환
+            return result
+
+        modified_string = remove_pattern(result[response_index + 13:])
+
+        match = re.search(r'\[(.*?)\]', modified_string)
+        if match:
+            extracted_part = match.group(1)
+        else:
+            extracted_part = ""
+
+        return extracted_part
     
     async def formatter(self, result:str):
         sentence = ''

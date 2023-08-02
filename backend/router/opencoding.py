@@ -33,6 +33,8 @@ class Opencoding:
     @router.post('/oc/text')
     async def inference_text(self, input: TextInferenceInput):
 
+        input.text = input.text.replace('\n', '')
+
         if input.pos:
             prompt = '다음 텍스트는 긍정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
         else:
