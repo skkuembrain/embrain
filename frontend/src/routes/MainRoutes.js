@@ -3,10 +3,13 @@ import { lazy } from 'react';
 // project import
 import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
-// import DashboardDefaultCopy from 'pages/dashboard_copy/index';
+import DashboardDefaultCopy from 'pages/dashboard_copy';
 
 // render - dashboard
-const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
+// const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
+
+// const DashboardDefaultCopy = Loadable(lazy(() => import('pages/dashboard_copy')));
+
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
@@ -17,7 +20,6 @@ const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
 
-const DashboardDefaultCopy = Loadable(lazy(()=> import('pages/dashboard_copy')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -27,7 +29,7 @@ const MainRoutes = {
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element: <DashboardDefaultCopy />
     },
     {
       path: 'color',
@@ -38,7 +40,7 @@ const MainRoutes = {
       children: [
         {
           path: 'default',
-          element: <DashboardDefault />
+          element: <DashboardDefaultCopy />
         }
       ]
     },

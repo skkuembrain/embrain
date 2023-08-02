@@ -15,20 +15,12 @@ const dashboard = {
   children: [
     {
       id: 'dashboard',
-      title: 'SUM & S.A & K.E',
+      title: '분석',
       type: 'item',
       url: '/dashboard/default',
       icon: icons.FormOutlined,
       breadcrumbs: false
     },
-    {
-      id: 'dashboard2',
-      title: 'Opencoding',
-      type: 'item',
-      url: '/dashboard_copy',
-      icon: icons.FormOutlined,
-      breadcrumbs: false
-    }
   ]
 
 };

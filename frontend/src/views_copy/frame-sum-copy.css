@@ -1,30 +1,36 @@
-.frame-sum-container {
-  width: 100%;
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-end; /* 대화 입력창이 화면 하단에 표시되도록 수정 */
-}
+
 .frame-sum-frame {
   width: 100%;
-  height: 100%;
+  height: 800px;
   display: flex;
-  overflow: auto;
   position: relative;
   align-self: center;
   align-items: center;
   flex-shrink: 0;
   justify-content: flex-start;
 }
+.frame-dialog{
+  width: 100%;
+  min-height: calc(100% - 160px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
 .frame-sum-user-input {
   gap: 12px;
   left: 0px;
   width: 100%;
-  bottom: 18px;
+  bottom: 0px;
   display: flex;
   position: absolute;
-  align-items: flex-start;
+  align-items: flex-end;
   padding-top: 30px;
   padding-left: 30px;
   padding-right: 30px;
@@ -170,26 +176,7 @@
   width: 27px;
   height: 21px;
 }
-.frame-sum-cancel-guide {
-  gap: 4px;
-  display: flex;
-  align-self: stretch;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.frame-sum-text-cancel-guide {
-  color: var(--dl-color-gray-400);
-  height: auto;
-  flex-grow: 1;
-  font-size: 12px;
-  font-style: Regular;
-  text-align: right;
-  font-family: Inter;
-  font-weight: 400;
-  line-height: normal;
-  font-stretch: normal;
-  text-decoration: none;
-}
+
 .frame-sum-dialog {
   gap: 8px;
   top: 0px;
@@ -199,8 +186,6 @@
   position: absolute;
   align-items: center;
   flex-direction: column;
-  overflow-y: auto; /* 자동으로 스크롤되도록 수정 */
-  max-height: calc(100% - 180px); /* .frame-sum-user-input을 침범하지 않도록 최대 높이 설정 */
 }
 .frame-sum-input1 {
   gap: 24px;
@@ -221,6 +206,23 @@
   display: flex;
   align-items: flex-end;
   flex-shrink: 0;
+  justify-content: flex-end;
+}
+.frame-sum-date-user-name::after {
+  content: "User";
+  font-size: 18px;
+  color: rgb(136, 136, 136);
+  margin-left: 15px;
+  margin-right: 15px;
+  height: auto;
+  font-size: 18px;
+  font-style: Regular;
+  text-align: left; /* 왼쪽 정렬 */
+  font-family: Inter;
+  font-weight: 400;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
 }
 .frame-sum-date-user-nameframe {
   gap: 8px;
@@ -248,24 +250,26 @@
   height: auto;
   font-size: 18px;
   font-style: Regular;
-  text-align: right;
+  text-align: left; /* 왼쪽 정렬 */
   font-family: Inter;
   font-weight: 400;
   line-height: normal;
   font-stretch: normal;
   text-decoration: none;
 }
+
 .frame-sum-users-input-data {
   gap: 10px;
-  width: 700px;
+  width: 100%;
   display: flex;
-  padding: 16px;
+  padding: 20px;
   align-items: flex-start;
   flex-shrink: 0;
   border-color: var(--dl-color-gray-900);
   border-width: 1px;
   border-radius: 12px;
   background-color: #ffffff;
+  margin-bottom: 20px;
 }
 .frame-sum-users-input-data1 {
   gap: 8px;
@@ -388,7 +392,7 @@
   gap: 10px;
   width: 700px;
   display: flex;
-  padding: 16px;
+  padding: 20px;
   align-items: center;
   flex-shrink: 0;
   border-color: var(--dl-color-gray-900);
@@ -396,6 +400,8 @@
   border-radius: 12px;
   justify-content: flex-start;
   background-color: #ffffff;
+  margin-bottom: 50px;
+
 }
 .frame-sum-frame-output-data {
   gap: 8px;
@@ -455,26 +461,10 @@
   line-height: normal;
   font-stretch: normal;
   text-decoration: none;
-}
-
-/* CSS 파일에서 링크와 아이콘 스타일링 추가 */
-.frame-sum-link {
-  float: left; /* 왼쪽으로 위치시킴 */
-  margin-right: 10px; /* 아이콘과 텍스트 사이 간격 */
-  text-decoration: none; /* 링크의 밑줄 제거 */
-  color: #333; /* 링크 텍스트 색상 */
-}
-
-.frame-sum-link-icon {
-  width: 16px; /* 아이콘 크기 */
-  height: 16px;
-  margin-right: 5px; /* 아이콘과 텍스트 사이 간격 */
-}
-
-
+ }
 @media(max-width: 1600px) {
   .frame-sum-frame {
-    height: 850px;
+    height: 600px;
   }
   .frame-sum-user-input {
     left: 0px;
@@ -535,8 +525,9 @@
 }
 @media(max-width: 1200px) {
   .frame-sum-frame {
-    height: 751px;
+    height: 500px;
   }
+
   .frame-sum-user-input {
     left: 0px;
     width: 100%;
@@ -559,7 +550,7 @@
   .frame-sum-dialog {
     flex: 1;
     left: 0px;
-    width: 1199px;
+    width: 100%;
     align-self: flex-start;
   }
   .frame-sum-input1 {
@@ -604,77 +595,19 @@
     line-height: normal;
     text-decoration: none;
   }
-  .frame-sum-dialog {
-    gap: 8px;
-    top: 164px;
-    left: 0px;
-    width: 100%;
-    display: flex;
-    position: absolute;
-    align-items: center;
-    flex-direction: column;
-    overflow-y: auto; /* 스크롤 설정 추가 */
-    max-height: 600px; /* 적절한 높이를 설정하여 채팅창이 너무 길어지지 않도록 제한 */
-  }
-  /* 대화창 스타일 */
-  .frame-sum-dialog {
-    flex: 1;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-    width: 100%; /* 적절한 높이를 설정하여 대화창이 화면에서 너무 길어지지 않도록 제한 */
-  }
+}
+/* 스크롤바의 바탕색 */
+::-webkit-scrollbar {
+  width: 10px; /* 스크롤바의 너비를 조절 */
+}
 
-  /* 입력창 스타일 */
-  .frame-sum-user-input {
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-top: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    position: absolute; /* 입력창을 절대 위치로 설정하여 frame-sum-dialog 안에 겹치지 않게 합니다. */
-    bottom: 0; /* 아래쪽으로 고정하여 위로 오도록 합니다. */
-    width: 100%; /* frame-sum-user-input를 frame-sum-dialog과 같은 너비로 설정하여 꽉 채우도록 합니다. */
-  }
+/* 스크롤바의 색상 */
+::-webkit-scrollbar-thumb {
+  background-color:#c9c9c9; /* 스크롤바의 바탕색을 설정 */
+  border-radius: 5px; /* 스크롤바의 모서리를 둥글게 설정 */
+}
 
-  /* 입력창 내부 스타일 */
-  .frame-sum-input {
-    max-width: 800px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 입력창의 텍스트 영역 스타일 */
-  .frame-sum-textarea {
-    resize: none;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  /* 전송 버튼 스타일 */
-  .frame-sum-send-button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  /* 전송 버튼에 호버 효과 스타일 */
-  .frame-sum-send-button:hover {
-    background-color: #0056b3;
-  }
-
-  /* 취소 안내 메시지 스타일 */
-  .frame-sum-cancel-guide {
-    margin-top: 10px;
-    font-size: 12px;
-    text-align: center;
-    color: #999;
-  }
-
+/* 스크롤바를 감싸는 바탕색 (예: 스크롤바가 투명한 영역에 위치할 때) */
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
