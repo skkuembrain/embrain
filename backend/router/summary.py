@@ -36,12 +36,21 @@ class Opencoding:
               "요약문의 시작은 [ 로, 끝은 ]로 제시하세요."
             )
             modelPrompt = "### Instruction(명령어):\n{}\n\n### Input(입력):\n{}\n\n### Response(응답):".format(prompt, input.text)
+        elif input.task == 'Sentiment analysis':
+            input.task = 'sa'
+            modelPrompt = input.text
+        elif input.task == 'Keyword Extraction':
+            input.task = 'keyword'
+            prompt = "아래 텍스트에 대해 가장 핵심이 되는 key noun phrase 2~4개를 추출해줘. ( 포맷 조건: 각 key phrase는 • 로 시작하며, 개행기호로 구분되어야 합니다.)"
+            modelPrompt = "### Instruction(명령어):\n{}\n\n### Input(입력):\n{}\n\n### Response(응답):".format(prompt, input.text)
 
         result = await self.svc.generateText(input.model, input.task, modelPrompt)
 
         if input.task == 'summary':
             results = await self.svc.summaryFormatter(result)
+        elif input.task == 'sa':
+            results = result[0]['label']
         else:
-            results = await self.svc.formatter(result, input.task)
+            results = await self.svc.formatter(result)
 
         return results
