@@ -1,0 +1,25 @@
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"pos":"True", "text":"디자인이 예쁘고 특이함.", "model":"polyglot"}' \
+  http://127.0.0.1:8000/oc/text
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"task":"summary", "text":"블로그 문화가 생기며 개인도 사회에서 목소리를 낼 수 있고 파워블로거처럼 영향력 있는 사람도 나타나고 있다. 언론사 같은 매개체 없이도 직접적 발언이 가능하다. 또한 개인간의 정보공유, 소통도 쉬워졌다.  ", "model":"trinity"}' \
+  http://127.0.0.1:8000/sum/text
+
+curl -F ‘file1=@/test/test.xlsx’ -F 'model=kogpt2' -F 'pos=true' http://127.0.0.1:8000/oc/file
+curl -L -F "file=@test/test.xlsx" http://127.0.0.1:8000/oc/file
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"task":"summary", "text":"블로그 문화가 생기며 개인도 사회에서 목소리를 낼 수 있고 파워블로거처럼 영향력 있는 사람도 나타나고 있다. 언론사 같은 매개체 없이도 직접적 발언이 가능하다. 또한 개인간의 정보공유, 소통도 쉬워졌다.  ", "model":"trinity"}' \
+  http://127.0.0.1:8000/sum/text
+
+frontend 배포
+yarn start
+
+backend 배포
+/opt/conda/envs/pytorch/bin/gunicorn -k uvicorn.workers.UvicornWorker --access-logfile ./gunicorn-access.log main:app --bind 0.0.0.0:8000 --timeout 600
+
+python3 -m gunicron k uvicorn.workers.UvicornWorker --access-logfile ./gunicorn-access.log main:app --bind 0.0.0.0:8000
