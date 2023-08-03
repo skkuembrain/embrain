@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import logo from "assets/external/embrainlogo-200h-200h.png";
 import 'views_copy/frame-sum-copy.css'
+
 import {
   FormControl,
   InputAdornment,
@@ -24,8 +25,10 @@ import axiosBase from 'axiosConfig';
 import link from 'assets/images/paperclip-solid.svg'
 
 
-const FrameSum = () => {
+const XLSX = require('xlsx');
 
+
+const FrameSum = () => {
 
   const [selectedModel, setSelectedModel] = useState('kogpt2');
   const [openCoding, setOpenCoding] = useState(true);
@@ -55,34 +58,8 @@ const FrameSum = () => {
   const [inputPlaceholder, setInputPlaceholder] = useState('Generate message..'); // 기본 플레이스홀더 설정
 
 
-
-
-
-
-
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const fileContent = event.target.result;
-      // 여기서 fileContent를 처리하거나 전송할 수 있습니다.
-      setUserInput(fileContent); // 입력창에 파일 내용을 설정합니다.
-    };
-
-    if (file.type === 'text/csv' || file.type === 'application/vnd.ms-excel') {
-      reader.readAsText(file);
-    } else {
-      alert('올바른 파일 형식이 아닙니다. xlsx 파일이나 csv 파일을 선택해주세요.');
-    }
-  };
-
   const chatHistoryRef = useRef(null);
   const inputRef = useRef(null);
-
-
 
   useEffect(() => {
     const chatHistoryDiv = chatHistoryRef.current;
@@ -122,12 +99,6 @@ const FrameSum = () => {
     setChatHistory(updatedChatHistory);
     setUserInput('');
 
-    // const reply = '모델이 생성한 답변입니다.';
-    // const reply = await axios.post('localhost:8000/oc/text', {
-    //   text: '맵고 달고 짜요',
-    //   pos: 'False',
-    //   model: 'trinity'
-    // })
     let reply = userInput;
     // if (openCoding) {
     //   reply = await axiosBase.post('oc/text', {
@@ -151,12 +122,55 @@ const FrameSum = () => {
     }, 500);
   };
 
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    if (file.type === 'text/csv' || file.type === 'application/vnd.ms-excel' || file.name.endsWith('.xlsx')) {
+
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        const fileContent = event.target.result;
+        // xlsx 파일 처리를 위해 xlsx 라이브러리 사용
+        const workbook = XLSX.read(fileContent, { type: 'binary' });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        
+
+        const updatedChatHistory = [...chatHistory, { text: file.name, user: true }];
+    
+        setChatHistory(updatedChatHistory);
+  
+        
+        
+    
+        let reply = ''
+          
+
+        setTimeout(() => {
+          const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
+          setChatHistory(updatedChatHistoryWithReply);
+        }, 500);
+
+      };
+  
+      reader.readAsBinaryString(file);
+    } else {
+      alert('올바른 파일 형식이 아닙니다. xlsx 파일이나 csv 파일을 선택해주세요.');
+    }
+  };
+  
+  
+
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       sendMessage();
     }
   };
-
 
 
   const handleInputFocus = () => {
@@ -167,6 +181,12 @@ const FrameSum = () => {
     const chatHistoryDiv = chatHistoryRef.current;
     chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
   }, [chatHistory]);
+
+
+
+
+
+
 
   return (
 

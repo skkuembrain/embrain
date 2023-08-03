@@ -32,10 +32,10 @@
   position: absolute;
   align-items: flex-end;
   padding-top: 30px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
   flex-direction: column;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 .frame-sum-task-option {
   gap: 16px;
