@@ -137,7 +137,8 @@ const FrameSum = () => {
 
       const formData = new FormData();
       formData.append("file", file);
-  
+
+      if (openCoding) {
       let reply = await axiosBase.post('oc/file', formData,
         {
           params: {model: selectedModel , pos: analysisType === '긍정 질문' ? "True" : "False"},
@@ -153,6 +154,23 @@ const FrameSum = () => {
         link.click();
         return '파일 생성이 완료되었습니다.'
       })
+    }else{
+      let reply = await axiosBase.post('sum/file', formData,
+        {
+          params: {model: selectedModel , task: analysisType},
+          headers: {"Content-Type": "multipart/form-data"},
+          responseType: 'blob'
+        }
+      ).then((res) => { 
+        const blob = new Blob([res.data], { type: res.headers['content-type'] }); 
+        const fileObjectUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = fileObjectUrl;
+        link.setAttribute('download', file.name);
+        link.click();
+        return '파일 생성이 완료되었습니다.'
+      })
+    }
         
 
       setTimeout(() => {
