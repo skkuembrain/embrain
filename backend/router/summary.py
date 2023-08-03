@@ -5,6 +5,7 @@ from fastapi_utils.cbv import cbv
 import pandas as pd
 import xlsxwriter
 from pydantic import BaseModel
+from fastapi.responses import FileResponse
 
 
 class TextInferenceInput(BaseModel):

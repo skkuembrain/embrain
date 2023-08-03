@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile, Depends, FileResponse
+from fastapi import APIRouter, File, UploadFile, Depends
 from service import OpencodingGenerator
 from fastapi_restful.inferring_router import InferringRouter
 from fastapi_utils.cbv import cbv
@@ -6,6 +6,7 @@ import pandas as pd
 import xlsxwriter
 from pydantic import BaseModel
 from io import BytesIO
+from fastapi.responses import FileResponse
 
 
 class TextInferenceInput(BaseModel):
@@ -56,19 +57,19 @@ class Opencoding:
 
 
     @router.post('/oc/file')
-    async def inference_file(self, file: UploadFile, pos: bool, model: str):
+    async def inference_file(self, file: UploadFile, model:str, pos:str):
 
-        if pos:
+        if pos == 'True':
             prompt = '다음 텍스트는 긍정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
         else:
             prompt = '다음 텍스트는 부정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
 
         # 업로드한 파일 전처리하기
 
-        contents = await file.file.read()
+        contents = file.file.read()
         data = BytesIO(contents)
 
-        df = pd.read_excel(file, header=1)
+        df = pd.read_excel(data, header=1)
 
         data.close()
         file.file.close()
@@ -96,7 +97,7 @@ class Opencoding:
 
         for idx, data in enumerate(inputs):
             prompt = data[1]
-            result = await self.svc.generateText(input.model, prompt)
+            result = await self.svc.generateText(model, prompt)
             df.loc[data[0], 'output1'] = result
 
         df.to_excel('data/' + file.filename)    

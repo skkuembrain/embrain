@@ -26,7 +26,7 @@ KEYWORD_TRINITY_PATH = 'model/summary/keyword_trinity_10/checkpoint-3000'
 
 class SummaryGenerator():
     def __init__(self):
-
+        '''
         # trinity (summary) on GPU
         print('---setting summary (trinity)---')
         config = PeftConfig.from_pretrained(SUM_TRINITY_PATH)
@@ -64,7 +64,7 @@ class SummaryGenerator():
         model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map = 'auto')
         self.key_trinity = PeftModel.from_pretrained(model, KEYWORD_TRINITY_PATH)
         self.key_trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-
+        '''
         
 
     async def generateText(self, model, task, prompt):

@@ -44,22 +44,18 @@ class OpencodingGenerator():
         self.kogpt2_tokenizer = kogpt2_tokenizer
 
         # polyglot
-        '''
         print('---setting polyglot---')
         config = PeftConfig.from_pretrained(POLYGLOT_PATH)
         model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map='auto')
         self.polyglot = PeftModel.from_pretrained(model, POLYGLOT_PATH)
         self.polyglot_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-        '''
 
         #TODO: trinity
-        '''
         print('---setting trinity---')
         config = PeftConfig.from_pretrained(TRINITY_PATH)
         model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map='auto')
         self.trinity = PeftModel.from_pretrained(model, TRINITY_PATH)
         self.trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-        '''
 
     async def generateText(self, model, prompt):
 
