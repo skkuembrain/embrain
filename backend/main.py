@@ -9,7 +9,7 @@ origins = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "http://127.0.0.1:8080",
-    "http://43.201.55.212:3000" # FIXME production url
+    "http://3.38.211.186:3000" # FIXME production url
 ]
 
 app.add_middleware(

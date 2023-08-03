@@ -80,10 +80,11 @@ class Opencoding:
         rowNumColName = df.columns[0]
         inputColName = df.columns[1]
 
-        for i in range(len(df.columns), 5):
+        for i in range(len(df.columns), 3):
             df['empty' + str(i)] = ''
 
-        df.columns = [rowNumColName, inputColName, 'output1', 'output2', 'output3']
+        df.columns = [rowNumColName, inputColName, 'modelOutput:' + model]
+        outputColName = df.columns[2]
 
         inputs = []
         for index, row in df.iterrows():
@@ -97,8 +98,11 @@ class Opencoding:
 
         for idx, data in enumerate(inputs):
             prompt = data[1]
+            prompt = prompt.replace('\n', '')
             result = await self.svc.generateText(model, prompt)
-            df.loc[data[0], 'output1'] = result
+            result = await self.svc.formatter(result[0])
+            result = ' '.join(s for s in result)
+            df.loc[data[0], outputColName] = result
 
         df.to_excel('data/' + file.filename)    
 

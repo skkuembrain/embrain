@@ -123,14 +123,44 @@ const FrameSum = () => {
   };
 
 
-  const handleFileSelect = (e) => {
+  const handleFileSelect = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
   
     if (file.type === 'text/csv' || file.type === 'application/vnd.ms-excel' || file.name.endsWith('.xlsx')) {
 
       const reader = new FileReader();
+
+      const updatedChatHistory = [...chatHistory, { text: file.name, user: true }];
+    
+      setChatHistory(updatedChatHistory);
+
+      const formData = new FormData();
+      formData.append("file", file);
   
+      let reply = await axiosBase.post('oc/file', formData,
+        {
+          params: {model: selectedModel , pos: analysisType === '긍정 질문' ? "True" : "False"},
+          headers: {"Content-Type": "multipart/form-data"},
+          responseType: 'blob'
+        }
+      ).then((res) => { 
+        const blob = new Blob([res.data], { type: res.headers['content-type'] }); 
+        const fileObjectUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = fileObjectUrl;
+        link.setAttribute('download', file.name);
+        link.click();
+        return '파일 생성이 완료되었습니다.'
+      })
+        
+
+      setTimeout(() => {
+        const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
+        setChatHistory(updatedChatHistoryWithReply);
+      }, 500);
+
+      /*
       reader.onload = (event) => {
         const fileContent = event.target.result;
         // xlsx 파일 처리를 위해 xlsx 라이브러리 사용
@@ -138,26 +168,9 @@ const FrameSum = () => {
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        
-
-        const updatedChatHistory = [...chatHistory, { text: file.name, user: true }];
-    
-        setChatHistory(updatedChatHistory);
-  
-        
-        
-    
-        let reply = ''
-          
-
-        setTimeout(() => {
-          const updatedChatHistoryWithReply = [...updatedChatHistory, { text: reply, user: false }];
-          setChatHistory(updatedChatHistoryWithReply);
-        }, 500);
-
       };
-  
       reader.readAsBinaryString(file);
+      */
     } else {
       alert('올바른 파일 형식이 아닙니다. xlsx 파일이나 csv 파일을 선택해주세요.');
     }
