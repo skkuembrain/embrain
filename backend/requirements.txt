@@ -14,3 +14,4 @@ uvicorn==0.23.1
 python-multipart==0.0.6
 fastapi-utils==0.2.1
 fastapi-restful==0.4.5
+python-multipart

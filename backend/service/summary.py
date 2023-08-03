@@ -100,7 +100,6 @@ class SummaryGenerator():
         else:
             for content in tqdm(list_prompt):
                 list_result.append(generator(content, do_sample=True, max_length=256))
-
         '''
         if task == 'sa':
             result = self.classifier(prompt)

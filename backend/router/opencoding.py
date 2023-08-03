@@ -1,10 +1,11 @@
-from fastapi import APIRouter, File, UploadFile, Depends
+from fastapi import APIRouter, File, UploadFile, Depends, FileResponse
 from service import OpencodingGenerator
 from fastapi_restful.inferring_router import InferringRouter
 from fastapi_utils.cbv import cbv
 import pandas as pd
 import xlsxwriter
 from pydantic import BaseModel
+from io import BytesIO
 
 
 class TextInferenceInput(BaseModel):
@@ -63,7 +64,15 @@ class Opencoding:
             prompt = '다음 텍스트는 부정적인 리뷰이다. 다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.'
 
         # 업로드한 파일 전처리하기
+
+        contents = await file.file.read()
+        data = BytesIO(contents)
+
         df = pd.read_excel(file, header=1)
+
+        data.close()
+        file.file.close()
+
         df.dropna(axis=0, how="any", subset=df.columns[:2])
         df = df.fillna("")
 
@@ -75,7 +84,7 @@ class Opencoding:
 
         df.columns = [rowNumColName, inputColName, 'output1', 'output2', 'output3']
 
-        input = []
+        inputs = []
         for index, row in df.iterrows():
             modelPrompt = (
                 "Below is an instruction that describes a task, paired with an input that provides further context.\n"
@@ -83,13 +92,13 @@ class Opencoding:
                 "Write a response that appropriately completes the request.\n요청을 적절히 완료하는 응답을 작성하세요.\n\n"
                 "### Instruction(명령어):\n{}\n\n### Input(입력):\n{}\n\n### Response(응답):".format(prompt, row[inputColName])
             )
-            input.append([index, modelPrompt])
+            inputs.append([index, modelPrompt])
 
-        print(df.columns)
+        for idx, data in enumerate(inputs):
+            prompt = data[1]
+            result = await self.svc.generateText(input.model, prompt)
+            df.loc[data[0], 'output1'] = result
 
-        for index, prompt in input:
-            df.loc[index, 'output1'] = prompt
+        df.to_excel('data/' + file.filename)    
 
-        # TODO: connect model code
-
-        return file.filename
+        return FileResponse('data/' + file.filename)
