@@ -66,4 +66,8 @@ Arguments in `inference.py`:
   |`--dataset`|테스트 할 때 사용하는 데이터셋|X|json 파일|
   |`--test_ratio`|데이터셋에서 테스트에 사용할 비율|0.2|1.0 >= float > 0.0|
 
+예시:
+  ```sh
+python inference.py --model=kogpt2 --model_dir="./models/kogpt2/checkpoint-50000" --save_dir="./test_result" --dataset="./Datasets/dataset.json" --test_ratio=0.4
+```
 
