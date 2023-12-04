@@ -113,7 +113,6 @@ def model_test(model_type, model_dir, save_dir, test_file):
                 eos_token_id=2,
             )
         output = tokenizer.decode(gened[0][input_ids['input_ids'].shape[-1]:])
-        output = list(set(output))
         list_result.append(output)
 
     if not os.path.exists(save_dir): os.makedirs(save_dir)
@@ -140,6 +139,7 @@ def model_test(model_type, model_dir, save_dir, test_file):
         worksheet.write(count+2, 2, user_input) # excel 파일에 
 
         preds = pattern.findall(result)
+        preds = list(set(preds))
         
         for i in range(len(preds)):
             worksheet.write(count+2, 3+i, preds[i])
