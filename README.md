@@ -63,11 +63,12 @@ Arguments in `inference.py`:
   |`--model`|사용한 베이스 모델|X|'kogpt2', 'polyglot', 'trinity', 'kogpt'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
   |`--save_dir`|테스트 결과 저장 위치|X|string|
-  |`--dataset`|테스트 할 때 사용하는 데이터셋|X|json 파일|
-  |`--test_ratio`|데이터셋에서 테스트에 사용할 비율|0.2|1.0 >= float > 0.0|
+  |`--test_file`|테스트 할 때 사용하는 데이터셋|X|엑셀 파일|
+
+  * 테스트 
 
 예시:
   ```sh
-python inference.py --model=kogpt2 --model_dir="./models/kogpt2/checkpoint-50000" --save_dir="./test_result" --dataset="./Datasets/dataset.json" --test_ratio=0.4
+python inference.py --model=kogpt2 --model_dir="./models/kogpt2/checkpoint-50000" --save_dir="./test_result" --test_file="./test_excel.xlsx"
 ```
 
