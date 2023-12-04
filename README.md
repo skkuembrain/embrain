@@ -4,7 +4,7 @@ embrain 웹서비스 repository입니다.
 
 ## Opencoding
 
-### How to install
+### Versions
 
 - Python version: 3.8.13
 - CUDA version: 11.7
@@ -65,7 +65,7 @@ Arguments in `inference.py`:
   |`--save_dir`|테스트 결과 저장 위치|X|string|
   |`--test_file`|테스트 할 때 사용하는 데이터셋|X|엑셀 파일|
 
-  * 테스트 
+  * 테스트 엑셀은 '질문 내용'과 '응답' 항목 필요
 
 예시:
   ```sh
