@@ -12,7 +12,7 @@ embrain 웹서비스 repository입니다.
 
 ----------
 
-### Data structure
+### Training Data structure
   |prompt|question|input|completion|
   |:---:|:---:|:---:|:---:|
   |"다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘."|귀하께서 알고 계시는...|친근하고 맛있는 과자|<NULL, 친숙하다> <NULL, 맛있다>| <br>
@@ -63,7 +63,7 @@ Arguments in `inference.py`:
   |`--model`|사용한 베이스 모델|X|'kogpt2', 'polyglot', 'trinity', 'kogpt'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
   |`--save_dir`|테스트 결과 저장 위치|"./"|string|
-  |`--test_file`|테스트 할 때 사용하는 데이터셋|X|엑셀 파일|
+  |`--test_file`|테스트 할 엑셀 파일|X|엑셀 파일|
 
   * 테스트 엑셀은 '질문 내용'과 '응답' 항목 필요
 
