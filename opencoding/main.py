@@ -1,3 +1,5 @@
+# 모델 학습 및 성능 테스트하는 파일입니다.
+
 import torch
 from torch.utils.data import Dataset
 import os

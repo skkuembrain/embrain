@@ -1,3 +1,5 @@
+# 학습된 모델을 불러와, 주어진 엑셀 파일을 채워 넣는 파일입니다.
+
 import torch
 import os
 import json
