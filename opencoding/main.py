@@ -429,10 +429,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='모델 학습 설정 방법입니다.')
 
     parser.add_argument('--model', required=True, choices=['kogpt2', 'polyglot', 'trinity', 'kogpt'], help='학습 모델(kogpt2/polyglot/trinity/kogpt 중 택 1)')
-    parser.add_argument('--epochs', default=20, help='학습 에포크')
-    parser.add_argument('--batch_size', default=8, help='학습 배치 사이즈')
-    parser.add_argument('--save_step', default=500, help='모델 저장 스탭 수')
-    parser.add_argument('--save_dir', default="./models", help='모델 저장 주소')
+    parser.add_argument('--epochs', default=20, help='학습 에포크 (default: 20)')
+    parser.add_argument('--batch_size', default=8, help='학습 배치 사이즈 (default: 8)')
+    parser.add_argument('--save_step', default=500, help='모델 저장 스탭 수 (default: 500)')
+    parser.add_argument('--save_dir', default="./models", help='모델 저장 주소 (default: "./model")')
     parser.add_argument('--dataset', required=True, help='학습할 데이터셋 (json 파일)')
     args = parser.parse_args()
 
