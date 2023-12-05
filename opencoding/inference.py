@@ -26,9 +26,23 @@ PROMPT_DICT = {
     ),
 }
 
+# ------------------------------------------------------------------------------------------
+# func name: remove_abn_type                                                                
+# 목적/용도: 유저 응답값에 있는 이상 데이터를 전처리하여 제거                                   
+# Input: 유저 응답값 (String)                                                            
+# Output: 이상값을 데이터를 제거한 유저 응답값 (String)
+# ------------------------------------------------------------------------------------------
 def remove_abn_type(text):
     return text.replace("_x000D_", "").replace("\n", " ").replace("‘", "").replace("’", "").replace("<unk>", "")
 
+# ------------------------------------------------------------------------------------------
+# func name: score_cal                                                                
+# 목적/용도: 모델의 예측값 평가                                  
+# Input:
+# - ans_list: 정답 리스트 (2D-array 형태 e.g. [[<모자, 예쁘다>, <상품, 많다>], [<음식, 맛있다>], ...])      
+# - pred_list: 정답 리스트 (2D-array 형태 e.g. [[<모자, 예쁘다>, <상품, 많다>, <가게, 많다>], [<음식, 맛있다>], ...])                                           
+# Output: Accuracy, Precision, Recall, F1-score
+# ------------------------------------------------------------------------------------------
 def score_cal(ans_list, pred_list):
     TP = 0 # 실제로 answer에 있고 맞춘거
     TN = 0 # answer에 없고 생산 안한 것
@@ -52,7 +66,17 @@ def score_cal(ans_list, pred_list):
 
     return accuracy, precision, recall, f1_score
 
-def model_test(model_type, model_dir, save_dir, test_file):
+# ------------------------------------------------------------------------------------------
+# func name: test_model                                                            
+# 목적/용도: 학습한 모델 테스트                                
+# Input:
+# - model_type: 모델 종류 ({"kogpt2", "polyglot", "trinity", "kogpt"} 중에 택 1)
+# - model_dir: 불러올 모델 주소 (String)
+# - save_dir: 테스트 결과값을 저장할 주소 (String)
+# - test_file: 테스트 할 엑셀 파일 (.xlsx, .csv 등)
+# Output: result.xlsx (테스트 결과 파일)
+# ------------------------------------------------------------------------------------------
+def test_model(model_type, model_dir, save_dir, test_file):
     if model_type == 'polyglot' or model_type == 'trinity' or model_type == 'kogpt':
         config = PeftConfig.from_pretrained(model_dir)
         model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path)
@@ -158,4 +182,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    model_test(model_type=args.model, model_dir=args.model_dir, save_dir=args.save_dir, test_file=args.test_file)
+    test_model(model_type=args.model, model_dir=args.model_dir, save_dir=args.save_dir, test_file=args.test_file)

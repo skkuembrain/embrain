@@ -161,9 +161,21 @@ class DataCollatorForSupervisedDataset(object):
         )
 
 class OpenCodingTrain():
+    # ------------------------------------------------------------------------------------------
+    # func name: remove_abn_type                                                                
+    # 목적/용도: 유저 응답값에 있는 이상 데이터를 전처리하여 제거                                   
+    # Input: 유저 응답값 (String)                                                            
+    # Output: 이상값을 데이터를 제거한 유저 응답값 (String)
+    # ------------------------------------------------------------------------------------------
     def remove_abn_type(self, text):
         return text.replace("_x000D_", "").replace("\n", " ").replace("‘", "").replace("’", "").replace("<unk>", "")
 
+    # ------------------------------------------------------------------------------------------
+    # func name: print_trainable_parameters                                                                
+    # 목적/용도: Base 모델에서 학습 가능한 파라미터 비율 출력                                  
+    # Input: Base model (AutoModelForCausalLM, PeftModel 등)                                                         
+    # Output: 학습 가능 파라미터 비율 출력
+    # ------------------------------------------------------------------------------------------
     def print_trainable_parameters(self,model):
         trainable_params = 0
         all_param = 0
@@ -175,7 +187,23 @@ class OpenCodingTrain():
         f"trainable params: {trainable_params} || all params: {all_param} || trainable%: {100 * trainable_params / all_param}"
         )
 
-    def load_model(self, model, epochs, batch_size, data_path, save_dir, save_step=500):
+    # ------------------------------------------------------------------------------------------
+    # func name: train_model                                                                
+    # 목적/용도: 모델 학습                              
+    # Input:
+    # - model: 학습할 모델 종류 ({"kogpt2", "polyglot", "trinity", "kogpt"} 중에 택 1)
+    # - epochs: 학습 에포크 (int > 0)
+    # - batch_size: 학습 배치 사이즈 (int > 0)
+    # - data_path: 학습 데이터 ("~~~.json" 형태의 String)
+    # - save_dir: 모델 저장 주소 (String)
+    # - save_step: n step마다 모델 파라미터 저장 (int > 0)
+    # Output: 
+    # - Input으로 주어진 save_dir에 학습된 모델 저장
+    # - loss_log.txt / loss_log(epoch).png : 학습 loss 로그
+    # - answer_log.txt / answer_log.xlsx : 전체 테스트 로그
+    # - error_log.txt / error_log.xlsx : 틀린 생성 값들에 대한 테스트 로그
+    # ------------------------------------------------------------------------------------------
+    def train_model(self, model, epochs, batch_size, data_path, save_dir, save_step):
         if model == 'polyglot' or model == 'trinity' or model == 'kogpt':
             if model == 'polyglot': model_id = "EleutherAI/polyglot-ko-1.3b"  
             elif model == 'trinity': model_id = "skt/ko-gpt-trinity-1.2B-v0.5"
@@ -271,6 +299,14 @@ class OpenCodingTrain():
         plt.legend()
         plt.savefig(dir + "/logs/loss_log(epoch).png")
 
+    # ------------------------------------------------------------------------------------------
+    # func name: score_cal                                                                
+    # 목적/용도: 모델의 예측값 평가                                  
+    # Input:
+    # - ans_list: 정답 리스트 (2D-array 형태 e.g. [[<모자, 예쁘다>, <상품, 많다>], [<음식, 맛있다>], ...])      
+    # - pred_list: 정답 리스트 (2D-array 형태 e.g. [[<모자, 예쁘다>, <상품, 많다>, <가게, 많다>], [<음식, 맛있다>], ...])                                           
+    # Output: Accuracy, Precision, Recall, F1-score
+    # ------------------------------------------------------------------------------------------
     def score_cal(self, ans_list, pred_list):
         TP = 0 # 실제로 answer에 있고 맞춘 것
         TN = 0 # answer에 없고 생산 안한 것
@@ -294,6 +330,14 @@ class OpenCodingTrain():
 
         return accuracy, precision, recall, f1_score
 
+    # ------------------------------------------------------------------------------------------
+    # func name: test_model                                                            
+    # 목적/용도: 학습한 모델 테스트                                
+    # Input:
+    # - data_path: 학습 데이터 ("~~~.json" 형태의 String)
+    # - save_dir: 테스트 결과값을 저장할 주소 (String)
+    # Output: result.xlsx (테스트 결과 파일)
+    # ------------------------------------------------------------------------------------------
     def test_model(self, data_path, save_dir):
         a_json = open(data_path, encoding = 'utf-8-sig')
         a_load = json.load(a_json)
