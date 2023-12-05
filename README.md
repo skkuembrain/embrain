@@ -51,7 +51,7 @@ python main.py --model=kogpt2 --epochs=50 --batch_size=8 --save_step=500 --save_
 - 저장 위치: {save_dir}/logs
 - loss_log.txt / loss_log(epoch).png : 학습 loss 로그
 - answer_log.txt / answer_log.xlsx : 전체 모델 테스트 로그
-- test_log.txt / test_log.xlsx : 틀린 생성 값들에 대한 테스트 로그
+- error_log.txt / error_log.xlsx : 틀린 생성 값들에 대한 테스트 로그
 
 ----------
 
