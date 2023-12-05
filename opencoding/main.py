@@ -379,7 +379,7 @@ class OpenCodingTrain():
 
         wrong_count = 0
 
-        workbook = xlsxwriter.Workbook(save_path + "/test_log.xlsx")
+        workbook = xlsxwriter.Workbook(save_path + "/error_log.xlsx")
         worksheet = workbook.add_worksheet()
         worksheet.write(1, 1, "Question")
         worksheet.write(1, 2, "User input")
@@ -388,7 +388,7 @@ class OpenCodingTrain():
         worksheet.write(1, 5, "Comletion2")
         worksheet.write(1, 6, "Comletion3")
 
-        with open(save_path + "/test_log.txt", 'w', encoding="utf-8") as f:
+        with open(save_path + "/error_log.txt", 'w', encoding="utf-8") as f:
             for i in range(len(answer_list)):
                 ans_correct = True
                 for ans in answer_list[i]:
