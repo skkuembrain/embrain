@@ -21,6 +21,7 @@ import logging
 from dataclasses import dataclass
 import copy
 
+# 모델을 학습/테스트 할 때 입력값으로 들어갈 프롬프트 템플릿
 PROMPT_DICT = {
     "prompt_input": (
         "Below is an instruction that describes a task, paired with an input that provides further context.\n"

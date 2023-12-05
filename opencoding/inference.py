@@ -13,6 +13,7 @@ import xlsxwriter
 import re
 import argparse
 
+# 모델을 사용 할 때 입력값으로 들어갈 프롬프트 템플릿
 PROMPT_DICT = {
     "prompt_input": (
         "Below is an instruction that describes a task, paired with an input that provides further context.\n"
@@ -75,7 +76,7 @@ def score_cal(ans_list, pred_list):
 # - model_type: 모델 종류 ({"kogpt2", "polyglot", "trinity", "kogpt"} 중에 택 1)
 # - model_dir: 불러올 모델 주소 (String)
 # - save_dir: 테스트 결과값을 저장할 주소 (String)
-# - test_file: 테스트 할 엑셀 파일 (.xlsx, .csv 등)
+# - test_file: 테스트 할 엑셀 파일 (.xlsx, .csv 등 | Column에 '질문 내용'과 '응답값' 항목이 있어야 함)
 # Output: result.xlsx (테스트 결과 파일)
 # ------------------------------------------------------------------------------------------
 def test_model(model_type, model_dir, save_dir, test_file):
