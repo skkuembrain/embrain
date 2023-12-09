@@ -96,15 +96,7 @@ def test_model(model_type, model_dir, save_dir, test_file):
         print("Wrong model type")
         os._exit(0)
 
-    if model_type == 'polyglot' or model_type == 'trinity':
-        tokenizer.add_special_tokens(
-            {
-                "eos_token": "<|endoftext|>",
-                "bos_token": "<|endoftext|>",
-                "unk_token": "<|endoftext|>",
-            }
-        ) 
-    else:
+    if model_type == "kogpt2" or model_type == "kogpt":
         tokenizer.add_special_tokens(
             {
                 "eos_token": "<\s>",
@@ -112,8 +104,7 @@ def test_model(model_type, model_dir, save_dir, test_file):
                 "unk_token": "<\s>",
             }
         )    
-    tokenizer.pad_token = tokenizer.eos_token
-    model.resize_token_embeddings(len(tokenizer))
+        tokenizer.pad_token = tokenizer.eos_token
 
     model.to('cuda') # GPU에서 연산을 진행
     model.eval() # 모델 파라미터 업데이트 없이 evaluation으로만 사용

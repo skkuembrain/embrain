@@ -239,19 +239,19 @@ class OpenCodingTrain():
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_id,
             padding_side="right",
-            model_max_length=256,
+            model_max_length=512,
         )
 
-        # 앞서 정의한 special tokens 추가
-        self.tokenizer.add_special_tokens(
-            {
-                "eos_token": DEFAULT_EOS_TOKEN,
-                "bos_token": DEFAULT_BOS_TOKEN,
-                "unk_token": DEFAULT_UNK_TOKEN,
-            }
-        )    
-        self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.model.resize_token_embeddings(len(self.tokenizer))
+        if model == 'kogpt2' or model == 'kogpt':
+            # 앞서 정의한 special tokens 추가
+            self.tokenizer.add_special_tokens(
+                {
+                    "eos_token": DEFAULT_EOS_TOKEN,
+                    "bos_token": DEFAULT_BOS_TOKEN,
+                    "unk_token": DEFAULT_UNK_TOKEN,
+                }
+            )    
+            self.tokenizer.pad_token = self.tokenizer.eos_token
         
         train_dataset = SFT_dataset(data_path=data_path, tokenizer=self.tokenizer, start=0.0, end=0.6)
         eval_dataset  = SFT_dataset(data_path=data_path, tokenizer=self.tokenizer, start=0.6, end=0.8)
@@ -285,7 +285,7 @@ class OpenCodingTrain():
         
         log = ""
         
-        epoch_log = [i+1 for i in range(epoch)]
+        epoch_log = [i+1 for i in range(epochs)]
         loss_log = [loss for loss in loss_df['loss'].dropna(axis=0)]
         eval_loss_log = [eval_loss for eval_loss in loss_df['eval_loss'].dropna(axis=0)]
 
@@ -482,11 +482,6 @@ if __name__ == "__main__":
     parser.add_argument('--save_dir', default="./models", help='모델 저장 주소 (default: "./model")')
     parser.add_argument('--dataset', required=True, help='학습할 데이터셋 (json 파일)')
     args = parser.parse_args()
-
-    if args.model == 'polyglot' or args.model == 'trinty':
-        DEFAULT_EOS_TOKEN = "<|endoftext|>"
-        DEFAULT_BOS_TOKEN = "<|endoftext|>"
-        DEFAULT_UNK_TOKEN = "<|endoftext|>"
 
     if not os.path.exists(args.save_dir): os.makedirs(args.save_dir)
 
