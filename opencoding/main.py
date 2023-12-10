@@ -59,10 +59,6 @@ class SFT_dataset(Dataset):
         with open(data_path, "r", encoding='utf-8-sig') as json_file:
             list_data_dict = json.load(json_file)
 
-        if DEFAULT_EOS_TOKEN not in list_data_dict[0]['completion']:
-            for i in range(len(list_data_dict)):
-                list_data_dict[i]['completion'] = list_data_dict[i]['completion'] + DEFAULT_EOS_TOKEN
-            
         list_data_dict = list_data_dict[int(len(list_data_dict) * start):int(len(list_data_dict) * end)] # 데이터셋의 60%만 training에 사용
         
         for i in range(len(list_data_dict)):
@@ -78,14 +74,14 @@ class SFT_dataset(Dataset):
         targets = []
         for example in list_data_dict:
             targets.append(f"{example['completion']}{tokenizer.eos_token}") # Completion + eos 토큰으로 target 정의
-
+            
+        examples = [s + t for s, t in zip(sources, targets)] # 입력 프롬프트와 정답값을 합친 값
+        
         if verbose:
             idx = 0
             print((sources[idx]))
             print((targets[idx]))
             print("Tokenizing inputs... This may take some time...")
-            
-        examples = [s + t for s, t in zip(sources, targets)] # 입력 프롬프트와 정답값을 합친 값
 
         # Tokenizer를 이용해 만든 sources & examples tokenize
         # _tokenize_fn() 함수는 아래에 정의
@@ -230,7 +226,7 @@ class OpenCodingTrain():
         
         elif model == "kogpt2":
             model_id = 'skt/kogpt2-base-v2'
-            self.model = AutoModelForCausalLM.from_pretrained(model_id)
+            self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map={"":0})
 
         else:
             print("Invalid model")
@@ -278,7 +274,6 @@ class OpenCodingTrain():
             )
         )
 
-        self.model.config.use_cache = False  # silence the warnings. Please re-enable for inference!
         trainer.train()
 
         loss_df = pd.DataFrame(trainer.state.log_history)

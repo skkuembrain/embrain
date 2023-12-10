@@ -110,9 +110,8 @@ def test_model(model_type, model_dir, save_dir, test_file):
     model.eval() # 모델 파라미터 업데이트 없이 evaluation으로만 사용
 
     df = pd.read_excel(test_file)
-
     test_data = []
-
+    
     for i in range(len(df['질문 내용'])):
         test_data.append({'prompt': "다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘.", 'question': df['질문 내용'][i], 'input': df['응답값'][i]})
 
@@ -126,9 +125,7 @@ def test_model(model_type, model_dir, save_dir, test_file):
         gened = model.generate(
                 **input_ids,
                 max_new_tokens=32,
-                # early_stopping=True,
                 do_sample=True,
-                eos_token_id=2,
             )
         output = tokenizer.decode(gened[0][input_ids['input_ids'].shape[-1]:])
         list_result.append(output)
