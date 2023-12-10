@@ -63,7 +63,8 @@ class SummaryGenerator():
         model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map = 'auto')
         self.key_trinity = PeftModel.from_pretrained(model, KEYWORD_TRINITY_PATH)
         self.key_trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
-        
+
+        #TODO: Total
         
 
     async def generateText(self, model, task, prompt):
