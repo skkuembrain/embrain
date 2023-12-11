@@ -46,7 +46,7 @@ Arguments in `main.py`:
 
 예시:
   ```sh
-python main.py --model=kogpt2 --epochs=50 --batch_size=8 --save_step=500 --save_dir="./models/kogpt2" --dataset="./Datasets/dataset.xlsx"
+python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./models/kogpt2" --dataset="./Datasets/dataset.xlsx"
 ```
 
 테스트 로그:
@@ -62,7 +62,7 @@ python main.py --model=kogpt2 --epochs=50 --batch_size=8 --save_step=500 --save_
 Arguments in `inference.py`:
   |Parameter name|Description|Default|Options|
   |:---:|:---:|:---:|:---:|
-  |`--model`|사용한 베이스 모델|X|'kogpt2', 'polyglot', 'trinity', 'kogpt'|
+  |`--model`|사용한 베이스 모델|X|'kogpt'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
   |`--save_dir`|테스트 결과 저장 위치|"./result"|string|
   |`--test_file`|테스트 할 엑셀 파일|X|엑셀 파일|
@@ -71,6 +71,6 @@ Arguments in `inference.py`:
 
 예시:
   ```sh
-python inference.py --model=kogpt2 --model_dir="./models/kogpt2/checkpoint-50000" --save_dir="./test_result" --test_file="./test_excel.xlsx"
+python inference.py --model=kogpt --model_dir="./models/kogpt/checkpoint-50000" --save_dir="./test_result" --test_file="./test_excel.xlsx"
 ```
 
