@@ -15,6 +15,9 @@ class Model_train:
     # 목적/용도: 클래스를 선언할 때 model_id와 json_file을 넣고 선언 -> 받은 model_id, json_file로 객체의 변수를 초기화                              
     # Input: model_id, json_file 경로                                                        
     # Output: X
+    # KoGPT와 Trinity 학습 가능
+    # model_id(KoGPT): "rycont/kakaobrain__kogpt-6b-8bit"
+    # model_id(Trinity): "skt/ko-gpt-trinity-1.2B-v0.5"
     # ------------------------------------------------------------------------------------------
     def __init__(self, model_id, json_file):
         self.model_id = model_id
@@ -117,15 +120,15 @@ class Model_train:
 # ------------------------------------------------------------------------------------------
 # func name: load_dataset                                                              
 # 목적/용도: learning_rate에 따라 여러 model을 학습시킴                          
-# Input: kogpt_train class, epoch, batch, l_rate_min, l_rate_max, dir(학습한 모델의 저장 경로)                                                      
+# Input: Model_train class, epoch, batch, l_rate_min, l_rate_max, dir(학습한 모델의 저장 경로)                                                      
 # Output: X
 # epoch를 변화시키지 않은 이유는 큰 epoch로 학습시키고 해당 모델의 checkpoint를 불러오면 다른 epoch로 학습한 모델을 불러오는 것과 같은 효과
 # learning_rate는 1e-05 ~ 5e-05를 추천
 # ------------------------------------------------------------------------------------------
-def train_model_multiple(kogpt_train, epoch, batch, l_rate_min, l_rate_max, dir):
+def train_model_multiple(model_train, epoch, batch, l_rate_min, l_rate_max, dir):
     while l_rate_min <= l_rate_max: # l_rate_min에 1e-05(10^-5)씩 더하며 l_rate_max가 될 때까지 돌림
         dir + "/" + str(epoch) + "_" + str(l_rate_min) # 모델을 저장할 폴더 경로 설정
-        kogpt_train.train_model(epoch=epoch, batch=batch, l_rate=l_rate_min, dir=dir) # 모델 학습
+        model_train.train_model(epoch=epoch, batch=batch, l_rate=l_rate_min, dir=dir) # 모델 학습
         l_rate_min += 1e-05
 
 
@@ -138,6 +141,6 @@ if __name__ == "__main__":
 
     convert_xlsx_to_json(file_name, json_file, mode) # xlsx -> json으로 변경
 
-    kogpt_train = Model_train("rycont/kakaobrain__kogpt-6b-8bit", json_file) # model_id와 json_file을 넣고 Class 생성
+    model_train = Model_train("rycont/kakaobrain__kogpt-6b-8bit", json_file) # model_id와 json_file을 넣고 Class 생성
 
-    train_model_multiple(kogpt_train, 50, 4, 3e-05, 3e-05, "./model") # 다른 파라미터로 여러 모델 학습
+    train_model_multiple(model_train, 50, 4, 3e-05, 3e-05, "./model") # 다른 파라미터로 여러 모델 학습
