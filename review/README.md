@@ -16,7 +16,7 @@
 ### for only one task: (ex) keyphrase)
   |input|completion|
   |:---:|:---:|
-  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|* 강사가 재미있음\n* 성적 상승|<br>
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|* 강사가 재미있음 * 성적 상승|<br>
 
   * 파일 형태: xlsx 파일
   * prompt는 xlsx -> json 변환 코드에 의해 task에 맞게 자동 삽입
@@ -37,16 +37,16 @@ pip install -r requirements.txt
 Arguments in `main.py`:
   |Parameter name|Description|Default|Options|
   |:---:|:---:|:---:|:---:|
-  |`--model`|사용할 베이스 모델|X|'kogpt2', 'polyglot', 'trinity', 'kogpt'|
-  |`--epochs`|학습 에포크|20|int > 0|
-  |`--batch_size`|학습 배치 사이즈|8|int > 0|
+  |`--model`|사용할 베이스 모델|X|'kogpt'|
+  |`--epochs`|학습 에포크|31|int > 0|
+  |`--batch_size`|학습 배치 사이즈|4|int > 0|
   |`--save_step`|모델 저장 스탭|500|int > 0|
   |`--save_dir`|모델 저장 주소|'./model'|string|
-  |`--dataset`|학습할 때 사용하는 데이터셋|X|json 파일|
+  |`--dataset`|학습할 때 사용하는 데이터셋|X|xlsx 파일|
 
 예시:
   ```sh
-python main.py --model=kogpt2 --epochs=50 --batch_size=8 --save_step=500 --save_dir="./models/kogpt2" --dataset="./Datasets/dataset.json"
+python main.py --model=kogpt2 --epochs=50 --batch_size=8 --save_step=500 --save_dir="./models/kogpt2" --dataset="./Datasets/dataset.xlsx"
 ```
 
 테스트 로그:
