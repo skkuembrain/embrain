@@ -153,8 +153,8 @@ def test_model(model_type, model_dir, save_dir, test_file):
         user_input = test_data[count]['input']
         worksheet.write(count+2, 2, user_input) # excel 파일에 
 
-        preds = pattern.findall(result)
-        preds = list(set(preds))
+        preds = pattern.findall(result) # 정규 표현식을 이용해 <~~,~~> 형태의 문자열 추출
+        preds = list(set(preds)) # 중복 제거
         
         for i in range(len(preds)):
             worksheet.write(count+2, 3+i, preds[i])
