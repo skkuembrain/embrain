@@ -49,12 +49,6 @@ Arguments in `main.py`:
 python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./model/kogpt2" --dataset="./dataset/dataset.xlsx"
 ```
 
-테스트 로그:
-- 저장 위치: {save_dir}/logs
-- loss_log.txt / loss_log(epoch).png : 학습 loss 로그
-- answer_log.txt / answer_log.xlsx : 전체 테스트 로그
-- error_log.txt / error_log.xlsx : 틀린 생성 값들에 대한 테스트 로그
-
 ----------
 
 ## Inference
