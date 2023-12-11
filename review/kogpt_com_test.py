@@ -232,14 +232,18 @@ class Model_test:
                 if i % 3 == 0:
                     list_result_sum.append(list_result[i])
                 elif i % 3 == 1:
-                    list_result[i] = list_result[i].replace('\' ', '')
-                    list_result[i] = list_result[i].replace(',', '\n')
+                    list_result[i] = list_result[i].replace('\'', '')
+                    list_result[i] = list_result[i].replace(', ', '\n')
                     list_result_key.append(list_result[i])
                 else:
                     list_result_sa.append(list_result[i])
             
             result_df = pd.DataFrame(list(zip(self.original_data, list_result_sum, list_result_key, list_result_sa)), columns=['Input', '요약', '핵심구문', '긍부정'])
         else:
+            if mode == 1:
+                for i in range(len(list_result)):
+                    list_result[i] = list_result[i].replace('\'', '')
+                    list_result[i] = list_result[i].replace(', ', '\n')
             result_df = pd.DataFrame(list(zip(self.original_data, list_result)))
             
         result_df.to_excel(excel_path, index=False)
@@ -357,6 +361,9 @@ class Model_test:
         elif self.mode == 1:
             model = SentenceTransformer('snunlp/KR-SBERT-V40K-klueNLI-augSTS')
             for i in range(len(list_result)):
+                # 스코어 계산을 위한 후처리
+                list_result[i] = list_result[i].replace('\'', '')
+                list_result[i] = list_result[i].replace(', ', '\n')
                 score_key.append(util.cos_sim(model.encode(list_result[i]), model.encode(self.answer_data[i])).item())
                 data = {'Input': self.original_data, '핵심구문': list_result, '핵심구문 점수': score_key}
                 result_df = pd.DataFrame(data)
@@ -365,10 +372,6 @@ class Model_test:
         elif self.mode == 0:
             model = SentenceTransformer('snunlp/KR-SBERT-V40K-klueNLI-augSTS')
             for i in range(len(list_result)):
-                # 스코어 계산을 위한 후처리
-                list_result[i].replace('\'', '')
-                list_result[i].replace(', ', '\n')
-
                 score_sum.append(util.cos_sim(model.encode(list_result[i]), model.encode(self.answer_data[i])).item())
                 data = {'Input': self.original_data, '요약': list_result, '요약 점수': score_sum}
                 result_df = pd.DataFrame(data)
@@ -377,10 +380,10 @@ class Model_test:
 
 
 if __name__ == "__main__":
-    mode = 3
+    mode = 0
     data_path = "./dataset/score_test.xlsx" # test할 데이터의 경로
     lr = 3 * 1e-05
     model_path = "./model/" + str(lr) + "/checkpoint-14000" # 모델의 경로
-    excel_path = "./result/" + str(lr) + "_checkpoint-14000_mode3_no_score" + ".xlsx" # test한 생성값을 저장할 경로
+    excel_path = "./result/" + str(lr) + "_checkpoint-14000_mode1_no_score" + ".xlsx" # test한 생성값을 저장할 경로
     test = Model_test(data_path, model_path, mode) # class 객체 생성
     test(excel_path) # test
