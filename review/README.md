@@ -12,11 +12,11 @@
 ### for all task: 
   |input|summary_completion|keyphrase_completion|sentiment-analysis_completion|
   |:---:|:---:|:---:|:---:|
-  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|강사가 재미있고, 성적이 올랐다.|• 강사가 재미있음\n• 성적 상승|긍정|<br>
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|강사가 재미있고, 성적이 올랐다.|• 강사가 재미있음<br>• 성적 상승|긍정|<br>
 ### for only one task: (ex) keyphrase)
   |input|completion|
   |:---:|:---:|
-  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|• 강사가 재미있음 • 성적 상승|<br>
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|• 강사가 재미있음<br>• 성적 상승|<br>
 
   * 파일 형태: xlsx 파일
   * prompt는 xlsx -> json 변환 코드에 의해 task에 맞게 자동 삽입
