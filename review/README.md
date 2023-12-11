@@ -12,11 +12,11 @@
 ### for all task: 
   |input|summary_completion|keyphrase_completion|sentiment-analysis_completion|
   |:---:|:---:|:---:|:---:|
-  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|강사가 재미있고, 성적이 올랐다.|* 강사가 재미있음\n* 성적 상승|긍정|<br>
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|강사가 재미있고, 성적이 올랐다.|• 강사가 재미있음\n• 성적 상승|긍정|<br>
 ### for only one task: (ex) keyphrase)
   |input|completion|
   |:---:|:---:|
-  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|* 강사가 재미있음 * 성적 상승|<br>
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|• 강사가 재미있음 • 성적 상승|<br>
 
   * 파일 형태: xlsx 파일
   * prompt는 xlsx -> json 변환 코드에 의해 task에 맞게 자동 삽입
@@ -37,8 +37,8 @@ pip install -r requirements.txt
 Arguments in `main.py`:
   |Parameter name|Description|Default|Options|
   |:---:|:---:|:---:|:---:|
-  |`--model`|사용할 베이스 모델|X|'kogpt'|
-  |`--epochs`|학습 에포크|31|int > 0|
+  |`--model`|사용할 베이스 모델|X|'kogpt', 'Trinity'|
+  |`--epochs`|학습 에포크|32|int > 0|
   |`--batch_size`|학습 배치 사이즈|4|int > 0|
   |`--save_step`|모델 저장 스탭|500|int > 0|
   |`--save_dir`|모델 저장 주소|'./model'|string|
@@ -46,7 +46,7 @@ Arguments in `main.py`:
 
 예시:
   ```sh
-python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./models/kogpt2" --dataset="./Datasets/dataset.xlsx"
+python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./model/kogpt2" --dataset="./dataset/dataset.xlsx"
 ```
 
 테스트 로그:
@@ -62,7 +62,7 @@ python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_d
 Arguments in `inference.py`:
   |Parameter name|Description|Default|Options|
   |:---:|:---:|:---:|:---:|
-  |`--model`|사용한 베이스 모델|X|'kogpt'|
+  |`--model`|사용한 베이스 모델|X|'kogpt', 'Trinity'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
   |`--save_dir`|테스트 결과 저장 위치|"./result"|string|
   |`--test_file`|테스트 할 엑셀 파일|X|엑셀 파일|
@@ -71,6 +71,6 @@ Arguments in `inference.py`:
 
 예시:
   ```sh
-python inference.py --model=kogpt --model_dir="./models/kogpt/checkpoint-50000" --save_dir="./test_result" --test_file="./test_excel.xlsx"
+python inference.py --model=kogpt --model_dir="./model/kogpt/checkpoint-50000" --save_dir="./result/test_result" --test_file="./dataset/test_excel.xlsx"
 ```
 
