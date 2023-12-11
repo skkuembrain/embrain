@@ -12,21 +12,21 @@
 ### for all task: 
   |input|summary_completion|keyphrase_completion|sentiment-analysis_completion|
   |:---:|:---:|:---:|:---:|
-  |"다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘."|귀하께서 알고 계시는...|친근하고 맛있는 과자|<NULL, 친숙하다> <NULL, 맛있다>| <NULL, 친숙하다> <NULL, 맛있다>|<br>
-### for only one task:
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|강사가 재미있고, 성적이 올랐다.|* 강사가 재미있음\n* 성적 상승|긍정|<br>
+### for only one task: (ex) keyphrase)
   |input|completion|
   |:---:|:---:|
-  |귀하께서 알고 계시는...|친근하고 맛있는 과자|<NULL, 친숙하다> <NULL, 맛있다>| <br>
+  |강의하시는 선생님이 재미있고, 덕분에 시험 성적도 올랐다.|* 강사가 재미있음\n* 성적 상승|<br>
 
   * 파일 형태: xlsx 파일
-  * prompt는 xlsx -> json 변환 코드의해 task에 맞게 자동 삽입
+  * prompt는 xlsx -> json 변환 코드에 의해 task에 맞게 자동 삽입
 
 ----------
 
 ## How to install
   ```sh
 git clone https://github.com/skkuembrain/embrain
-cd opencoding
+cd review
 pip install -r requirements.txt
 ```
 
