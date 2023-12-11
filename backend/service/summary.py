@@ -66,11 +66,11 @@ class SummaryGenerator():
         self.key_trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
 
         #TODO: Total
-        print('---setting Total (trinity)---')
+        print('---setting Total (kogpt)---')
         config = PeftConfig.from_pretrained(TOTAL_KOGPT_PATH)
         model = AutoModelForCausalLM.from_pretrained(config.base_model_name_or_path, device_map = 'auto')
-        self.key_trinity = PeftModel.from_pretrained(model, TOTAL_KOGPT_PATH)
-        self.key_trinity_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
+        self.total_kogpt = PeftModel.from_pretrained(model, TOTAL_KOGPT_PATH)
+        self.total_kogpt_tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
 
     async def generateText(self, model, task, prompt):
 
@@ -85,6 +85,9 @@ class SummaryGenerator():
         elif task == 'keyword':
             model = self.key_trinity
             tokenizer = self.key_trinity_tokenizer
+        elif task == 'total':
+            model = self.total_kogpt
+            tokenizer = self.total_kogpt_tokenizer
 
         # Using deepspeed
         '''
