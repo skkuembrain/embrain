@@ -23,6 +23,7 @@ DEFAULT_UNK_TOKEN = "</s>"
 SUM_TRINITY_PATH = 'model/summary/test_trinity_dataver4_12_4_1e-4/checkpoint-7500'
 SA_KOGPT2_PATH = 'model/summary/kogpt2_sentiment'
 KEYWORD_TRINITY_PATH = 'model/summary/keyword_trinity_10/checkpoint-3000'
+TOTAL_KOGPT_PATH = 'model/TotalKogpt'
 
 class SummaryGenerator():
     def __init__(self):
