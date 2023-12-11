@@ -9,10 +9,12 @@
 ----------
 
 ## Training Data structure
-### for all task: |input|summary_completion|keyphrase_completion|sentiment-analysis_completion|
+### for all task: 
+  |input|summary_completion|keyphrase_completion|sentiment-analysis_completion|
   |:---:|:---:|:---:|:---:|
   |"다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘."|귀하께서 알고 계시는...|친근하고 맛있는 과자|<NULL, 친숙하다> <NULL, 맛있다>| <NULL, 친숙하다> <NULL, 맛있다>|<br>
-### for only one task: |input|completion|
+### for only one task:
+  |input|completion|
   |:---:|:---:|
   |귀하께서 알고 계시는...|친근하고 맛있는 과자|<NULL, 친숙하다> <NULL, 맛있다>| <br>
 
