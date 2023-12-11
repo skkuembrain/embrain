@@ -43,10 +43,11 @@ Arguments in `main.py`:
   |`--save_step`|모델 저장 스탭|500|int > 0|
   |`--save_dir`|모델 저장 주소|'./model'|string|
   |`--dataset`|학습할 때 사용하는 데이터셋|X|xlsx 파일|
+  |`--mode`|학습할 task 모드|3|0(요약), 1(핵심구문추출), 2(감성분석), 3(전체)|
 
 예시:
   ```sh
-python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./model/kogpt2" --dataset="./dataset/dataset.xlsx"
+python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./model/kogpt2" --dataset="./dataset/dataset.xlsx --mode=3"
 ```
 
 ----------
@@ -55,16 +56,17 @@ python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_d
 
 Arguments in `inference.py`:
   |Parameter name|Description|Default|Options|
-  |:---:|:---:|:---:|:---:|
+  |:---:|:---:|:---:|:---:|:---:|
   |`--model`|사용한 베이스 모델|X|'kogpt', 'Trinity'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
   |`--save_dir`|테스트 결과 저장 위치|"./result"|string|
   |`--test_file`|테스트 할 엑셀 파일|X|엑셀 파일|
+  |`--mode`|테스트할 task 모드|3|0(요약), 1(핵심구문추출), 2(감성분석), 3(전체)|
 
   * 테스트 엑셀은 '질문 내용'과 '응답' 항목 필요
 
 예시:
   ```sh
-python inference.py --model=kogpt --model_dir="./model/kogpt/checkpoint-50000" --save_dir="./result/test_result" --test_file="./dataset/test_excel.xlsx"
+python inference.py --model=kogpt --model_dir="./model/kogpt/checkpoint-50000" --save_dir="./result/test_result" --test_file="./dataset/test_excel.xlsx --mode=3"
 ```
 
