@@ -253,6 +253,7 @@ class Model_test:
     # 현재 감성분석의 경우 f1_score와 accuracy를 바탕으로 score를 계산하고, 요약과 핵심구문 추출의 경우 "snunlp/KR-SBERT-V40K-klueNLI-augSTS" 모델을 사용하여 score를 계산합니다
     # flag(0: f1_score 계산, 1: f1_score 미계산) - f1_score는 1대1 비교이기 때문에 긍정/부정이 아닌 다른 문자에 대해 계산을 수행할 수 없으며 오류 발생
     # 그 오류를 막기 위해 긍정/부정 이외의 문자가 나올 경우 f1_score를 계산하지 않음
+    # 엑셀에서 긍부정 점수의 맨 아래쪽에 숫자가 2개 -> f1_score, accuracy / 1개 -> accuracy
     # ------------------------------------------------------------------------------------------
     def calc_score(self, list_result):
         list_result_sum = []
