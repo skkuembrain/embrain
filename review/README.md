@@ -47,7 +47,7 @@ Arguments in `main.py`:
 
 예시:
   ```sh
-python main.py --model=kogpt --epochs=32 --batch_size=8 --l_rate=3e-05 --save_dir="./model" --dataset="./dataset/dataset.xlsx --mode=3"
+python3 main.py --model=kogpt --epochs=32 --batch_size=8 --l_rate=3e-05 --save_dir="./model" --dataset="./dataset/dataset.xlsx --mode=3"
 ```
 
 ----------
@@ -68,6 +68,6 @@ Arguments in `inference.py`:
 
 예시:
   ```sh
-python inference.py --model=kogpt --model_dir="./model/kogpt/checkpoint-50000" --save_dir="./result/test_result" --test_file="./dataset/test_excel.xlsx --mode=3"
+python3 inference.py --model=kogpt --model_dir="./model/kogpt/1e-05/checkpoint-50000" --save_dir="./result" --test_file="./dataset/test_data.xlsx --mode=3"
 ```
 
