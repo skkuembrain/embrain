@@ -199,7 +199,7 @@ class DatasetConverter():
                 for i in df.index:
                     data = {}
                     data['prompt'] = "다음 텍스트에 대해서 <속성, 의견> 형태로 의견을 추출해줘."
-                    data['question'] = first_row
+                    data['question'] = first_row[0]
                     data['input'] = df['input'][i]
                     completion = ""
                     for ans in ["ans1", "ans2", "ans3"]:
@@ -261,7 +261,7 @@ class DatasetConverter():
 
         # 엑셀 파일로 저장
 
-        file_name = extract_path + 'output.xlsx'
+        file_name = extract_path + '/output.xlsx'
         with pd.ExcelWriter(file_name) as writer:
             grouped.to_excel(writer, index=False, sheet_name='Data')
 
