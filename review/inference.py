@@ -383,7 +383,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='모델 테스트 방법입니다.')
 
     parser.add_argument('--model', required=True, choices=['trinity', 'kogpt'], help='학습 모델(trinity/kogpt 중 택 1)')
-    parser.add_argument('--model_dir', required=True, help='테스트 할 모델 주소, 체크포인트까지 입력해야 함)
+    parser.add_argument('--model_dir', required=True, help='테스트 할 모델 주소, 체크포인트까지 입력해야 함')
     parser.add_argument('--save_dir', default="./result", help='테스트 결과를 저장할 주소 (default: "./result")')
     parser.add_argument('--test_file', required=True, help='테스트 할 엑셀 파일')
     parser.add_argument('--mode', default=3, help='테스트할 task mode')
