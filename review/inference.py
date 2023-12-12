@@ -380,10 +380,19 @@ class Model_test:
 
 
 if __name__ == "__main__":
-    mode = 0
+    parser = argparse.ArgumentParser(description='모델 테스트 방법입니다.')
+
+    parser.add_argument('--model', required=True, choices=['trinity', 'kogpt'], help='학습 모델(trinity/kogpt 중 택 1)')
+    parser.add_argument('--model_dir', required=True, help='테스트 할 모델 주소, 체크포인트까지 입력해야 함)
+    parser.add_argument('--save_dir', default="./result", help='테스트 결과를 저장할 주소 (default: "./result")')
+    parser.add_argument('--test_file', required=True, help='테스트 할 엑셀 파일')
+    parser.add_argument('--mode', default=3, help='테스트할 task mode')
+
+    args = parser.parse_args()
+    
     data_path = "./dataset/score_test.xlsx" # test할 데이터의 경로
     lr = 3 * 1e-05
     model_path = "./model/" + str(lr) + "/checkpoint-14000" # 모델의 경로
-    excel_path = "./result/" + str(lr) + "_checkpoint-14000_mode1_no_score" + ".xlsx" # test한 생성값을 저장할 경로
-    test = Model_test(data_path, model_path, mode) # class 객체 생성
+    excel_path = args.save_dir + str(lr) + "_checkpoint-14000_mode1_no_score" + ".xlsx" # test한 생성값을 저장할 경로
+    test = Model_test(args.test_file, args.model_path, args.mode) # class 객체 생성
     test(excel_path) # test
