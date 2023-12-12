@@ -21,7 +21,7 @@ DEFAULT_UNK_TOKEN = "</s>"
 
 KOGPT2_PATH = 'model/opencoding/kogpt2_epoch_25_lr_1e-05'
 POLYGLOT_PATH = 'model/opencoding/polyglot_epoch_50/checkpoint-264000'
-TRINITY_PATH = 'model/opencoding/trinity_epoch_50/checkpoint-330000' 
+TRINITY_PATH = 'model/Open_Coding/trinity' 
 
 class OpencodingGenerator():
     def __init__(self):
