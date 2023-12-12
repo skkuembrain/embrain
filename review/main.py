@@ -1,6 +1,8 @@
 import torch
 import json
 import datasets
+import argparse
+import os
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments, Trainer, DataCollatorForLanguageModeling
 from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
 from tqdm import tqdm
@@ -20,7 +22,13 @@ class Model_train:
     # model_id(Trinity): "skt/ko-gpt-trinity-1.2B-v0.5"
     # ------------------------------------------------------------------------------------------
     def __init__(self, model_id, json_file):
-        self.model_id = model_id
+        if model_id == "kogpt":
+            self.model_id = "rycont/kakaobrain__kogpt-6b-8bit"
+        elif model_id == "trinity":
+            self.model_id = "skt/ko-gpt-trinity-1.2B-v0.5"
+        else:
+            print("Invalid model")
+            os._exit(0)
         self.data = self.load_dataset(json_file)
         self.model = self.load_model()
 
@@ -133,14 +141,30 @@ def train_model_multiple(model_train, epoch, batch, l_rate_min, l_rate_max, dir)
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='모델 학습 설정 방법입니다.')
 
-    mode = 3 # 학습 모드 선택 (0: 요약, 1: 핵심구문추출, 2: 감성분석, 3: 전체)
+    parser.add_argument('--model', required=True, choices=['trinity', 'kogpt'], help='학습 모델(trinity/kogpt 중 택 1)')
+    parser.add_argument('--epochs', default=32, help='학습 에포크 (default: 32)')
+    parser.add_argument('--batch_size', default=4, help='학습 배치 사이즈 (default: 4)')
+    parser.add_argument('--l_rate', default=3e-05, help='러닝 레이트 (default: 3e-05)')
+    parser.add_argument('--save_dir', default="./model", help='모델 저장 주소 (default: "./model")')
+    parser.add_argument('--dataset', required=True, help='학습할 데이터셋 (xlsx 파일)')
+    parser.add_argument('--mode', default=3, help='학습 모드 (default: 3)')
+    args = parser.parse_args()
     
-    file_name = "./dataset/train_data.xlsx" # 학습 데이터로 사용될 데이터 파일의 이름(경로)
-    json_file = "./dataset/train_data.json" # 엑셀 파일을 json 파일로 변경할 때의 이름
+    file_name = args.dataset
+    json_file = file_name.replace("xlsx", "json")
+    convert_xlsx_to_json(file_name, json_file, args.mode)
+    model_train = Model_train(args.model, json_file)
+    model_train.train_model(args.epochs, args.batch_size, args.l_rate, args.save_dir)
+    
+    # mode = 3 # 학습 모드 선택 (0: 요약, 1: 핵심구문추출, 2: 감성분석, 3: 전체)
+    
+    # file_name = "./dataset/train_data.xlsx" # 학습 데이터로 사용될 데이터 파일의 이름(경로)
+    # json_file = "./dataset/train_data.json" # 엑셀 파일을 json 파일로 변경할 때의 이름
 
-    convert_xlsx_to_json(file_name, json_file, mode) # xlsx -> json으로 변경
+    # convert_xlsx_to_json(file_name, json_file, mode) # xlsx -> json으로 변경
 
-    model_train = Model_train("rycont/kakaobrain__kogpt-6b-8bit", json_file) # model_id와 json_file을 넣고 Class 생성
+    # model_train = Model_train("kogpt", json_file) # model_id와 json_file을 넣고 Class 생성
 
-    train_model_multiple(model_train, 50, 4, 3e-05, 3e-05, "./model") # 다른 파라미터로 여러 모델 학습
+    # train_model_multiple(model_train, 50, 4, 3e-05, 3e-05, "./model") # 다른 파라미터로 여러 모델 학습
