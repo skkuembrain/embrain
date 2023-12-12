@@ -65,6 +65,6 @@ Arguments in `inference.py`:
 
 예시:
   ```sh
-python inference.py --model=kogpt2 --model_dir="./models/kogpt2/checkpoint-50000" --save_dir="./test_result" --test_file="./test_excel.xlsx"
+python inference.py --model=kogpt2 --model_dir="./models/kogpt2/checkpoint-50000" --test_file="./test_excel.xlsx" --save_dir="./test_result"
 ```
 
