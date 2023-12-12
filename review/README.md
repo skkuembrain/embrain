@@ -41,13 +41,13 @@ Arguments in `main.py`:
   |`--epochs`|학습 에포크|32|int > 0|
   |`--batch_size`|학습 배치 사이즈|4|int > 0|
   |`--l_rate`|러닝 레이트|3e-05|3e-04 ~ 5e-05|
-  |`--save_dir`|모델 저장 주소|'./model'|string|
+  |`--save_dir`|모델 저장 주소(./model로 설정시 ./model/model_id/epoch_lr에 저장)|'./model'|string|
   |`--dataset`|학습할 때 사용하는 데이터셋|X|xlsx 파일|
   |`--mode`|학습할 task 모드|3|0(요약), 1(핵심구문추출), 2(감성분석), 3(전체)|
 
 예시:
   ```sh
-python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_dir="./model/kogpt2" --dataset="./dataset/dataset.xlsx --mode=3"
+python main.py --model=kogpt --epochs=32 --batch_size=8 --l_rate=3e-05 --save_dir="./model" --dataset="./dataset/dataset.xlsx --mode=3"
 ```
 
 ----------
