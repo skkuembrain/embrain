@@ -260,7 +260,9 @@ class DatasetConverter():
         grouped = df.groupby(["question", "input", "attribute", "opinion"]).size().reset_index(name='count')
 
         # 엑셀 파일로 저장
-        with pd.ExcelWriter('output.xlsx') as writer:
+
+        file_name = extract_path + 'output.xlsx'
+        with pd.ExcelWriter(file_name) as writer:
             grouped.to_excel(writer, index=False, sheet_name='Data')
 
 
