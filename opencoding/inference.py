@@ -168,8 +168,8 @@ if __name__ == "__main__":
 
     parser.add_argument('--model', required=True, choices=['kogpt2', 'polyglot', 'trinity', 'kogpt'], help='학습 모델(kogpt2/polyglot/trinity/kogpt 중 택 1)')
     parser.add_argument('--model_dir', required=True, help='테스트 할 모델 주소(checkpoint까지 주어야 함)')
-    parser.add_argument('--save_dir', default="./result", help='테스트 결과를 저장할 주소 (default: "./result")')
     parser.add_argument('--test_file', required=True, help='테스트 할 엑셀 파일')
+    parser.add_argument('--save_dir', default="./result", help='테스트 결과를 저장할 주소 (default: "./result")')
 
     args = parser.parse_args()
 

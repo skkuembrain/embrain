@@ -223,11 +223,10 @@ class OpenCodingTrain():
             self.model = get_peft_model(self.model, config)
             self.print_trainable_parameters(self.model)
             
-        
         elif model == "kogpt2":
             model_id = 'skt/kogpt2-base-v2'
             self.model = AutoModelForCausalLM.from_pretrained(model_id, device_map={"":0})
-
+            
         else:
             print("Invalid model")
             os._exit(0)
@@ -237,7 +236,7 @@ class OpenCodingTrain():
             padding_side="right",
             model_max_length=512,
         )
-
+        
         if model == 'kogpt2' or model == 'kogpt':
             # 앞서 정의한 special tokens 추가
             self.tokenizer.add_special_tokens(
@@ -252,9 +251,9 @@ class OpenCodingTrain():
         train_dataset = SFT_dataset(data_path=data_path, tokenizer=self.tokenizer, start=0.0, end=0.6)
         eval_dataset  = SFT_dataset(data_path=data_path, tokenizer=self.tokenizer, start=0.6, end=0.8)
         data_collator = DataCollatorForSupervisedDataset(tokenizer=self.tokenizer)
-
+        
         if not os.path.exists(save_dir + "/logs"): os.makedirs(save_dir + "/logs") 
-
+        
         trainer = transformers.Trainer(
             model=self.model,
             train_dataset=train_dataset,
@@ -273,23 +272,24 @@ class OpenCodingTrain():
                 prediction_loss_only=True,
             )
         )
-
-        trainer.train()
-
-        loss_df = pd.DataFrame(trainer.state.log_history)
         
+        trainer.train()
+        
+        loss_df = pd.DataFrame(trainer.state.log_history)
         log = ""
         
+        # 학습 loss 받아오기
         epoch_log = [i+1 for i in range(epochs)]
         loss_log = [loss for loss in loss_df['loss'].dropna(axis=0)]
         eval_loss_log = [eval_loss for eval_loss in loss_df['eval_loss'].dropna(axis=0)]
-
+        
         with open(dir + "/logs/loss_log.txt", 'w') as f:
             for i in range(len(epoch_log)):
                 log += "Epoch : " + str(epoch_log[i]) + "\t\tLoss : " + str(loss_log[i]) + "\t\tEval_Loss : " + str(eval_loss_log[i]) + "\n"
             print()
             f.write(log)
-
+            
+        # 학습 loss 기록
         plt.plot(epoch_log, loss_log, label="loss")
         plt.plot(epoch_log, eval_loss_log, label="validation loss")
         plt.xlabel("Epoch")
@@ -310,7 +310,7 @@ class OpenCodingTrain():
         TN = 0 # answer에 없고 생산 안한 것
         FP = 0 # answer에 없는데 정답이라고 한 것
         FN = 0 # answer에 있는데 맞추지 못한 것
-
+        
         for i in range(len(ans_list)):
             for j in range(len(pred_list[i])):
                 if pred_list[i][j] in ans_list[i]:
@@ -320,12 +320,13 @@ class OpenCodingTrain():
             for j in range(len(ans_list[i])):
                 if ans_list[i][j] not in pred_list[i]:
                     FN += 1
-
+                    
+        # Score 계산
         accuracy = (TP + FN) / (TP + FN + FP + TN) if TP + FN + FP + TN != 0 else 0
         precision = TP / (TP + FP) if TP + FP != 0 else 0
         recall = TP / (TP + FN) if TP + FN != 0 else 0
         f1_score = 2 * (recall * precision) / (recall + precision) if recall + precision != 0 else 0
-
+        
         return accuracy, precision, recall, f1_score
 
     # ------------------------------------------------------------------------------------------
@@ -350,17 +351,20 @@ class OpenCodingTrain():
         start = time.time()
         
         for content in tqdm(list_prompt):
+            # Input 토큰화
             input_ids = self.tokenizer(content, return_tensors='pt', return_token_type_ids=False).to('cuda')
+            # 토큰화된 입력값을 모델에 넣어주어 예측값 생성
             gened = self.model.generate(
                     **input_ids,
                     max_new_tokens=32,
                     do_sample=True
             )
+            # 출력 토큰값을 decode 후 저장
             output = self.tokenizer.decode(gened[0][input_ids['input_ids'].shape[-1]:])
             list_result.append(output)
         
         end = time.time()
-
+        
         save_path = save_dir + "/logs"
         if not os.path.exists(save_path): os.makedirs(save_path) 
         with open(save_path + "/answer_log.txt", 'w', encoding='utf8', errors="ignore") as f:
@@ -379,6 +383,7 @@ class OpenCodingTrain():
             worksheet.write(1, 5, "Comletion2")
             worksheet.write(1, 6, "Comletion3")
 
+            # 생성한 정답값에 대하여 엑셀 & text file 로그 작성
             for prompt, result in zip(list_prompt, list_result):
                 f.write("-----------------------------------------------------------------------------------------------\n\n")
                 question = a_load[count]['question'] # Dataset으로부터 질문 가져옴
@@ -396,7 +401,9 @@ class OpenCodingTrain():
                 answers = pattern.findall(a_load[count]['completion']) # 모델 생성 값
                 answer_list.append(answers)
 
+                # 앞서 정의한 정규표현식을 사용해 <속성, 의견> 형태의 답변 추출 (후처리)
                 preds = pattern.findall(result)
+                preds = list(set(preds)) # 중복 제거
                 pred_list.append(preds)
                 
                 pred_idx = 4
@@ -430,6 +437,7 @@ class OpenCodingTrain():
         worksheet.write(1, 5, "Comletion2")
         worksheet.write(1, 6, "Comletion3")
 
+        # 전체 생성값이 아닌, 틀린 값들에 대해서 엑셀 & text file 로그 작성
         with open(save_path + "/error_log.txt", 'w', encoding="utf-8") as f:
             for i in range(len(answer_list)):
                 ans_correct = True
