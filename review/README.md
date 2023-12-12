@@ -37,7 +37,7 @@ pip install -r requirements.txt
 Arguments in `main.py`:
   |Parameter name|Description|Default|Options|
   |:---:|:---:|:---:|:---:|
-  |`--model`|사용할 베이스 모델|X|'kogpt', 'Trinity'|
+  |`--model`|사용할 베이스 모델|X|'kogpt', 'trinity'|
   |`--epochs`|학습 에포크|32|int > 0|
   |`--batch_size`|학습 배치 사이즈|4|int > 0|
   |`--save_step`|모델 저장 스탭|500|int > 0|
@@ -57,7 +57,7 @@ python main.py --model=kogpt --epochs=50 --batch_size=8 --save_step=500 --save_d
 Arguments in `inference.py`:
   |Parameter name|Description|Default|Options|
   |:---:|:---:|:---:|:---:|
-  |`--model`|사용한 베이스 모델|X|'kogpt', 'Trinity'|
+  |`--model`|사용한 베이스 모델|X|'kogpt', 'trinity'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
   |`--save_dir`|테스트 결과 저장 위치|"./result"|string|
   |`--test_file`|테스트 할 엑셀 파일|X|엑셀 파일|
