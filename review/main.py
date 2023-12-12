@@ -133,9 +133,9 @@ class Model_train:
 # epoch를 변화시키지 않은 이유는 큰 epoch로 학습시키고 해당 모델의 checkpoint를 불러오면 다른 epoch로 학습한 모델을 불러오는 것과 같은 효과
 # learning_rate는 1e-05 ~ 5e-05를 추천
 # ------------------------------------------------------------------------------------------
-def train_model_multiple(model_train, epoch, batch, l_rate_min, l_rate_max, dir):
+def train_model_multiple(model_train, epoch, batch, l_rate_min, l_rate_max, dir, model_id):
     while l_rate_min <= l_rate_max: # l_rate_min에 1e-05(10^-5)씩 더하며 l_rate_max가 될 때까지 돌림
-        dir + "/" + self.model_id + "/" + str(epoch) + "_" + str(l_rate_min) # 모델을 저장할 폴더 경로 설정
+        dir + "/" + model_id + "/" + str(epoch) + "_" + str(l_rate_min) # 모델을 저장할 폴더 경로 설정
         model_train.train_model(epoch=epoch, batch=batch, l_rate=l_rate_min, dir=dir) # 모델 학습
         l_rate_min += 1e-05
 
@@ -167,4 +167,4 @@ if __name__ == "__main__":
 
     # model_train = Model_train("kogpt", json_file) # model_id와 json_file을 넣고 Class 생성
 
-    # train_model_multiple(model_train, 50, 4, 3e-05, 3e-05, "./model") # 다른 파라미터로 여러 모델 학습
+    # train_model_multiple(model_train, 50, 4, 3e-05, 3e-05, "./model", "kogpt") # 다른 파라미터로 여러 모델 학습
