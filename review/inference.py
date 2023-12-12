@@ -12,6 +12,7 @@ import sklearn
 from tqdm import tqdm
 import re
 import openpyxl
+import argparse
 
 # 모델을 테스트하는 Class
 # 정답이 있는 엑셀 -> 생성한 output + score
@@ -240,7 +241,7 @@ class Model_test:
             
             result_df = pd.DataFrame(list(zip(self.original_data, list_result_sum, list_result_key, list_result_sa)), columns=['Input', '요약', '핵심구문', '긍부정'])
         else:
-            if mode == 1:
+            if self.mode == 1:
                 for i in range(len(list_result)):
                     list_result[i] = list_result[i].replace('\'', '')
                     list_result[i] = list_result[i].replace(', ', '\n')
@@ -393,7 +394,7 @@ if __name__ == "__main__":
     data_path = args.test_file # test할 데이터의 경로
     model_epoch_lr = args.model_dir.replace("./model/","")
     excel_path = args.save_dir + "/" + model_epoch_lr + ".xlsx" # test한 생성값을 저장할 경로
-    test = Model_test(data_path, args.model_dir, args.mode) # class 객체 생성
+    test = Model_test(data_path, args.model_dir, int(args.mode)) # class 객체 생성
     test(excel_path) # test
 
 
