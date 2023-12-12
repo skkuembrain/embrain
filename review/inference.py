@@ -392,8 +392,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     data_path = args.test_file # test할 데이터의 경로
-    model_epoch_lr = args.model_dir.replace("./model/","")
-    excel_path = args.save_dir + "/" + model_epoch_lr + ".xlsx" # test한 생성값을 저장할 경로
+    model_lr = args.model_dir.replace("./model/","")
+    excel_path = args.save_dir + "/" + model_lr + ".xlsx" # test한 생성값을 저장할 경로
     test = Model_test(data_path, args.model_dir, int(args.mode)) # class 객체 생성
     test(excel_path) # test
 
