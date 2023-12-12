@@ -392,7 +392,6 @@ if __name__ == "__main__":
     
     data_path = "./dataset/score_test.xlsx" # test할 데이터의 경로
     lr = 3 * 1e-05
-    model_path = "./model/" + str(lr) + "/checkpoint-14000" # 모델의 경로
     excel_path = args.save_dir + str(lr) + "_checkpoint-14000_mode1_no_score" + ".xlsx" # test한 생성값을 저장할 경로
     test = Model_test(args.test_file, args.model_path, args.mode) # class 객체 생성
     test(excel_path) # test
