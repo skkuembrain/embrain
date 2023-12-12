@@ -341,13 +341,11 @@ class OpenCodingTrain():
         a_load = json.load(a_json)
 
         a_load = a_load[int(len(a_load) * 0.8):]
-
         list_prompt = [PROMPT_DICT['prompt_input'].format_map(tmp) for tmp in a_load]
         
         list_result = []
-
         pattern = re.compile(r'<[ㄱ-ㅣ가-힣|a-zA-Z|\s]+[,][ㄱ-ㅣ가-힣|a-zA-Z|\s]+>')
-
+        
         self.model.eval()
         start = time.time()
         
@@ -401,8 +399,10 @@ class OpenCodingTrain():
                 preds = pattern.findall(result)
                 pred_list.append(preds)
                 
+                pred_idx = 4
                 for pred in preds:
-                    worksheet.write(count+2, 4, pred)
+                    worksheet.write(count+2, pred_idx, pred)
+                    pred_idx += 1
 
                 f.write("Prediction: ")
                 f.write(result)
