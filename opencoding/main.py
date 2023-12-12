@@ -105,10 +105,21 @@ class SFT_dataset(Dataset):
         self.labels = data_dict["labels"]
         logging.warning("Loading data done!!: %d"%(len(self.labels)))    
     
+    # ------------------------------------------------------------------------------------------
+    # func name: remove_abn_type                                                                
+    # 목적/용도: 유저 응답값에 있는 이상 데이터를 전처리하여 제거                                   
+    # Input: 유저 응답값 (String)                                                            
+    # Output: 이상값을 데이터를 제거한 유저 응답값 (String)
+    # ------------------------------------------------------------------------------------------
     def remove_abn_type(self, text):
         return text.replace("_x000D_", "").replace("\n", " ").replace("‘", "").replace("’", "").replace("<unk>", "")
         
-    # 파라미터로 받은 'strings'를 'tokenizer'를 이용해 tokenize
+    # ------------------------------------------------------------------------------------------
+    # func name: _tokenize_fn                                                                
+    # 목적/용도: 입력값을 토큰화                                 
+    # Input: 유저 입력값 (String list)                                                           
+    # Output: 토큰화된 입력값 (Dictionary)
+    # ------------------------------------------------------------------------------------------
     def _tokenize_fn(self, strings: Sequence[str], tokenizer: transformers.PreTrainedTokenizer) -> Dict:
         """Tokenize a list of strings."""
         tokenized_list = [
