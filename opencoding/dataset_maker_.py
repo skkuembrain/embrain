@@ -269,7 +269,7 @@ class DatasetConverter():
 if __name__ == "__main__":
    
    # excel 데이터가 있는 폴더명
-    extract_path = '/opencoding'
+    extract_path = os.path.dirname(os.path.abspath(__file__))
 
     # 데이터 변환기 생성 및 훈련
     converter = DatasetConverter(extract_path, verbose=False)
