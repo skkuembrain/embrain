@@ -128,7 +128,7 @@ class Model_train:
 # ------------------------------------------------------------------------------------------
 # func name: load_dataset                                                              
 # 목적/용도: learning_rate에 따라 여러 model을 학습시킴                          
-# Input: kogpt_train class, epoch, batch, l_rate_min, l_rate_max, dir(학습한 모델의 저장 경로)                                                      
+# Input: model_train class, epoch, batch, l_rate_min, l_rate_max, dir(학습한 모델의 저장 경로)                                                      
 # Output: X
 # epoch를 변화시키지 않은 이유는 큰 epoch로 학습시키고 해당 모델의 checkpoint를 불러오면 다른 epoch로 학습한 모델을 불러오는 것과 같은 효과
 # learning_rate는 1e-05 ~ 5e-05를 추천
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     
     file_name = args.dataset
     json_file = file_name.replace("xlsx", "json")
-    convert_xlsx_to_json(file_name, json_file, args.mode)
+    convert_xlsx_to_json(file_name, json_file, int(args.mode))
     model_train = Model_train(args.model, json_file)
     save_dir = args.save_dir + "/" + args.model + "/" + str(args.epochs) + "_" + str(args.l_rate)
     model_train.train_model(args.epochs, args.batch_size, args.l_rate, save_dir)
