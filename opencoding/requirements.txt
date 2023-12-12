@@ -12,4 +12,5 @@ safetensors==0.4.0
 accelerate==0.24.0
 bitsandbytes==0.41.1
 accelerate==0.24.0
+soynlp==0.0.493
 argparse
