@@ -58,8 +58,8 @@ Arguments in `inference.py`:
   |:---:|:---:|:---:|:---:|
   |`--model`|사용한 베이스 모델|X|'kogpt2', 'polyglot', 'trinity', 'kogpt'|
   |`--model_dir`|테스트 할 모델 주소|X|string|
-  |`--save_dir`|테스트 결과 저장 위치|"./result"|string|
   |`--test_file`|테스트 할 엑셀 파일|X|엑셀 파일|
+  |`--save_dir`|테스트 결과 저장 위치|"./result"|string|
 
   * 테스트 엑셀은 '질문 내용'과 '응답' 항목 필요
 
