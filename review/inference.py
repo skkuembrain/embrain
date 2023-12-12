@@ -390,8 +390,18 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    data_path = "./dataset/score_test.xlsx" # test할 데이터의 경로
-    lr = 3 * 1e-05
-    excel_path = args.save_dir + str(lr) + "_checkpoint-14000_mode1_no_score" + ".xlsx" # test한 생성값을 저장할 경로
-    test = Model_test(args.test_file, args.model_path, args.mode) # class 객체 생성
+    data_path = args.test_file # test할 데이터의 경로
+    model_epoch_lr = args.mode_dir.replace("./model/","")
+    excel_path = args.save_dir + "/" + model_epoch_lr + ".xlsx" # test한 생성값을 저장할 경로
+    test = Model_test(data_path, args.model_dir, args.mode) # class 객체 생성
     test(excel_path) # test
+
+
+    # mode = 0
+    # data_path = "./dataset/score_test.xlsx" # test할 데이터의 경로
+    # lr = 3 * 1e-05
+    # epoch = 32
+    # model_path = "./model/" + str(epoch) + "_" + str(lr) + "/checkpoint-14000" # 모델의 경로
+    # excel_path = "./result/" + str(epoch) + "_" + str(lr) + "_checkpoint-14000_mode1_no_score" + ".xlsx" # test한 생성값을 저장할 경로
+    # test = Model_test(data_path, model_path, mode) # class 객체 생성
+    # test(excel_path) # test
