@@ -156,7 +156,7 @@ if __name__ == "__main__":
     json_file = file_name.replace("xlsx", "json")
     convert_xlsx_to_json(file_name, json_file, int(args.mode))
     model_train = Model_train(args.model, json_file)
-    save_dir = args.save_dir + "/" + args.model + "/" + str(args.epochs) + "_" + str(args.l_rate)
+    save_dir = args.save_dir + "/" + args.model + "/" + str(args.l_rate)
     model_train.train_model(args.epochs, args.batch_size, args.l_rate, save_dir)
     
     # mode = 3 # 학습 모드 선택 (0: 요약, 1: 핵심구문추출, 2: 감성분석, 3: 전체)
