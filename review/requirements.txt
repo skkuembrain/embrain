@@ -1,4 +1,5 @@
 argparse
+bitsandbytes==0.41.1
 datasets==2.14.5
 openpyxl==3.1.2
 pandas==1.4.2
