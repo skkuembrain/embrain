@@ -1,11 +1,10 @@
-﻿
 embrain
-│
 │  .gitignore
 │  API.txt
 │  docker-compose.yml
 │  README.md
-│  
+│  tree.txt
+│
 ├─backend
 │  │  Dockerfile
 │  │  main.py
@@ -32,6 +31,15 @@ embrain
 │  │  │      training_args.bin
 │  │  │      
 │  │  ├─Open_Coding
+│  │  │  ├─kogpt
+│  │  │  │      adapter_config.json
+│  │  │  │      adapter_model.safetensors
+│  │  │  │      README.md
+│  │  │  │      rng_state.pth
+│  │  │  │      scheduler.pt
+│  │  │  │      trainer_state.json
+│  │  │  │      training_args.bin
+│  │  │  │      
 │  │  │  ├─kogpt2
 │  │  │  │      test.py
 │  │  │  │      
@@ -272,12 +280,15 @@ embrain
 │              sidebar.js
 │              
 ├─opencoding
-│      dataset_maker_.py 
-│      inference.py
-│      main.py
-│      README.md
-│      requirements.txt
-│      
+│  │  dataset_maker_.py
+│  │  inference.py
+│  │  main.py
+│  │  README.md
+│  │  requirements.txt
+│  │  
+│  └─dataset
+│          sample_dataset.json
+│          
 └─review
     │  inference.py
     │  main.py
@@ -290,4 +301,3 @@ embrain
             raw_data_laptop.xlsx
             train_data.json
             train_data.xlsx
-            
