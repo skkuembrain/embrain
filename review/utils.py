@@ -127,3 +127,11 @@ def convert_xlsx_to_json(file_name, json_file, mode):
 
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
+
+if __name__ == "__main__":
+    
+    file_name = "./dataset/train_data.xlsx"
+    json_file = "./dataset/train_data.json"
+    mode = 3
+
+    convert_xlsx_to_json(file_name, json_file, mode)
